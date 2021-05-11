@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import { View, TouchableWithoutFeedback, StatusBar } from 'react-native'
 import { Button, Input, Layout, StyleService, Text, useStyleSheet, Icon, useTheme } from '@ui-kitten/components';
 import { KeyboardAvoidingView } from '../common/extra';
+import Snackbar from 'react-native-snackbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PhoneIcon } from '../common/Icons';
 import axios from 'axios';
 import url from '../../url';
+import { UserContext } from '../../theme/ApplyTheme';
 
 const SellerLogin = ({ navigation }) => {
+
+    const { dispatch } = useContext(UserContext)
 
     const [mobileNo, setMobileNo] = useState('')
     const [password, setPassword] = useState('')
@@ -17,15 +21,36 @@ const SellerLogin = ({ navigation }) => {
         axios.post(`${url}/seller/signin`, { mobileNo, password })
             .then(res => {
                 if (res.data.status === 'success') {
+                    Snackbar.show({
+                        text: res.data.message,
+                        duration: Snackbar.LENGTH_LONG,
+                        backgroundColor: theme['color-success-default'],
+                        action: {
+                            text: 'OK',
+                            textColor: 'white',
+                            onPress: () => { Snackbar.dismiss() },
+                        },
+                    });
                     res.data.user.role = 'seller'
                     AsyncStorage.setItem('user', JSON.stringify(res.data.user))
                         .then(() => {
+                            dispatch({ type: 'USER', payload: res.data.user })
                             navigation.replace('LOADING')
                         })
                         .catch(err => console.log(err))
                 }
                 else {
-                    console.log(res.data.message)
+                    Snackbar.show({
+                        text: res.data.message,
+                        duration: Snackbar.LENGTH_LONG,
+                        backgroundColor: theme['color-danger-default'],
+                        action: {
+                            text: 'OK',
+                            textColor: 'white',
+                            onPress: () => { Snackbar.dismiss() },
+                        },
+                    });
+                    // console.log(res.data.message)
                 }
             })
             .catch(err => console.log(err))

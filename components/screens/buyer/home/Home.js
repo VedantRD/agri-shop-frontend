@@ -11,7 +11,7 @@ const Home = ({ navigation }) => {
     const renderItemFooter = () => (
         <View style={styles.itemFooter}>
             <Text category='s1'>
-                200
+                ₹ 200
             </Text>
             <Button
                 style={styles.iconButton}
