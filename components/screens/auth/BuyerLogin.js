@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, TouchableWithoutFeedback, StatusBar } from 'react-native'
 import { Button, Input, Layout, StyleService, Text, useStyleSheet, Icon, useTheme } from '@ui-kitten/components';
 import { KeyboardAvoidingView } from '../common/extra';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PhoneIcon } from '../common/Icons';
+
 import url from '../../url';
 import axios from 'axios';
+import { UserContext } from '../../theme/ApplyTheme';
 
 const BuyerLogin = ({ navigation }) => {
+
+    const { dispatch } = useContext(UserContext)
 
     const [mobileNo, setMobileNo] = useState('')
     const [password, setPassword] = useState('')
@@ -20,6 +24,7 @@ const BuyerLogin = ({ navigation }) => {
                     res.data.user.role = 'buyer'
                     AsyncStorage.setItem('user', JSON.stringify(res.data.user))
                         .then(() => {
+                            dispatch({ type: 'USER', payload: res.data.user })
                             navigation.replace('LOADING')
                         })
                         .catch(err => console.log(err))

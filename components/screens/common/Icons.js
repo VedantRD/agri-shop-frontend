@@ -28,3 +28,11 @@ export const InfoIcon = (props) => (
 export const LogoutIcon = (props) => (
     <Icon {...props} name='log-out' />
 );
+
+export const BellIcon = (props) => (
+    <Icon {...props} name='bell-outline' />
+);
+
+export const HomeIcon = (props) => (
+    <Icon {...props} name='home-outline' />
+);

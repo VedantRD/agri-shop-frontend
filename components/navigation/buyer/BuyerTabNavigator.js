@@ -1,27 +1,12 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BottomNavigation, BottomNavigationTab, Layout, Text, Icon } from '@ui-kitten/components';
-import Home from '../../screens/buyer/home/Home';
+import { BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
+
+import Orders from '../../screens/buyer/orders/Orders'
+import HomeStack from './HomeStack'
 import Profile from '../../screens/buyer/profile/Profile';
 const { Navigator, Screen } = createBottomTabNavigator();
-
-const PersonIcon = (props) => (
-  <Icon {...props} name='person-outline' />
-);
-
-const BellIcon = (props) => (
-  <Icon {...props} name='bell-outline' />
-);
-
-const HomeIcon = (props) => (
-  <Icon {...props} name='home-outline' />
-);
-
-const OrdersScreen = () => (
-  <Layout level='4' style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text category='h4'>ORDERS</Text>
-  </Layout>
-);
+import { PersonIcon, BellIcon, HomeIcon } from '../../screens/common/Icons'
 
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
@@ -35,8 +20,8 @@ const BottomTabBar = ({ navigation, state }) => (
 
 const BuyerTabNavigator = () => (
   <Navigator tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name='Home' component={Home} />
-    <Screen name='Orders' component={OrdersScreen} />
+    <Screen name='Home' component={HomeStack} />
+    <Screen name='Orders' component={Orders} />
     <Screen name='Profile' component={Profile} />
   </Navigator>
 );
