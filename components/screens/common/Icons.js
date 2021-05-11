@@ -36,3 +36,15 @@ export const BellIcon = (props) => (
 export const HomeIcon = (props) => (
     <Icon {...props} name='home-outline' />
 );
+
+export const PlusIcon = (props) => (
+    <Icon {...props} name='plus-outline' />
+);
+
+export const MinusIcon = (props) => (
+    <Icon {...props} name='minus-outline' />
+);
+
+export const CloseIcon = (props) => (
+    <Icon {...props} name='close-outline' />
+);
