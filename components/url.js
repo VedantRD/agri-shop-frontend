@@ -1,4 +1,4 @@
-module.exports = 'http://10.0.2.2:5000/user'
+module.exports = 'http://10.0.2.2:5000'
 
 
 // heroku url

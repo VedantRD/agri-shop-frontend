@@ -1,29 +1,34 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, TouchableWithoutFeedback, StatusBar } from 'react-native'
+import { View, TouchableWithoutFeedback, StatusBar } from 'react-native'
 import { Button, Input, Layout, StyleService, Text, useStyleSheet, Icon, useTheme } from '@ui-kitten/components';
 import { KeyboardAvoidingView } from '../common/extra';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { PersonIcon, PhoneIcon } from '../common/Icons';
+import { PhoneIcon } from '../common/Icons';
+import url from '../../url';
+import axios from 'axios';
 
 const BuyerLogin = ({ navigation }) => {
 
-    const [user, setUser] = useState(false)
     const [mobileNo, setMobileNo] = useState('')
     const [password, setPassword] = useState('')
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    const loginUser = () => {
-        if (user) {
-            AsyncStorage.setItem('user', JSON.stringify(res.data.user))
-                .then(() => {
-                    navigation.replace('Loading')
-                    showToast(res.data.message, theme.color.success)
-                })
-                .catch(err => console.log(err))
-        }
-        else {
-            showToast(res.data.message, theme.color.danger)
-        }
+    const login = () => {
+        axios.post(`${url}/buyer/signin`, { mobileNo, password })
+            .then(res => {
+                if (res.data.status === 'success') {
+                    res.data.user.role = 'buyer'
+                    AsyncStorage.setItem('user', JSON.stringify(res.data.user))
+                        .then(() => {
+                            navigation.replace('LOADING')
+                        })
+                        .catch(err => console.log(err))
+                }
+                else {
+                    console.log(res.data.message)
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     const styles = useStyleSheet(styles2);
@@ -89,8 +94,10 @@ const BuyerLogin = ({ navigation }) => {
             </Layout>
             <Button
                 style={styles.signInButton}
-                size='giant'>
-                SIGN IN
+                size='giant'
+                onPress={login}
+            >
+                LOGIN
             </Button>
             <Button
                 style={styles.signUpButton}

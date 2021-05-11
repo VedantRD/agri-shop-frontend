@@ -12,3 +12,19 @@ export const PhoneIcon = (props) => (
 export const CartIcon = (props) => (
     <Icon {...props} name='shopping-cart-outline' />
 );
+
+export const BackIcon = (props) => (
+    <Icon {...props} name='arrow-back' />
+);
+
+export const MenuIcon = (props) => (
+    <Icon {...props} name='more-vertical' />
+);
+
+export const InfoIcon = (props) => (
+    <Icon {...props} name='info' />
+);
+
+export const LogoutIcon = (props) => (
+    <Icon {...props} name='log-out' />
+);

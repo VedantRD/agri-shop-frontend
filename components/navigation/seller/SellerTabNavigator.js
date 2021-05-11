@@ -1,8 +1,8 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab, Layout, Text, Icon } from '@ui-kitten/components';
-import Home from '../../screens/buyer/home/Home';
-import Profile from '../../screens/buyer/profile/Profile';
+import Home from '../../screens/seller/home/Home'
+import Profile from '../../screens/seller/profile/Profile'
 const { Navigator, Screen } = createBottomTabNavigator();
 
 const PersonIcon = (props) => (

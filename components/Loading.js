@@ -13,6 +13,7 @@ const Loading = ({ navigation }) => {
         AsyncStorage.getItem('user')
             .then(user => {
                 if (user) {
+                    user = JSON.parse(user)
                     dispatch({ type: 'USER', payload: user })
                     console.log(user, 'found!')
                     if (user.role === 'buyer')

@@ -3,31 +3,34 @@ import { StyleSheet, View, TouchableWithoutFeedback, StatusBar } from 'react-nat
 import { Button, Input, Layout, StyleService, Text, useStyleSheet, Icon, useTheme } from '@ui-kitten/components';
 import { KeyboardAvoidingView } from '../common/extra';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios'
 import { PersonIcon, PhoneIcon } from '../common/Icons';
+import url from '../../url';
 
 const BuyerRegister = ({ navigation }) => {
 
-    const [user, setUser] = useState(false)
     const [mobileNo, setMobileNo] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [address, setAddress] = useState('')
     const [passwordVisible, setPasswordVisible] = useState(false);
 
-    console.log(password)
-
-    const loginUser = () => {
-        if (user) {
-            AsyncStorage.setItem('user', JSON.stringify(res.data.user))
-                .then(() => {
-                    navigation.replace('Loading')
-                    showToast(res.data.message, theme.color.success)
-                })
-                .catch(err => console.log(err))
-        }
-        else {
-            showToast(res.data.message, theme.color.danger)
-        }
+    const register = () => {
+        axios.post(`${url}/buyer/signup`, { mobileNo, password, name, address })
+            .then(res => {
+                if (res.data.status === 'success') {
+                    res.data.user.role = 'buyer'
+                    AsyncStorage.setItem('user', JSON.stringify(res.data.user))
+                        .then(() => {
+                            navigation.replace('LOADING')
+                        })
+                        .catch(err => console.log(err))
+                }
+                else {
+                    console.log(res.data.message)
+                }
+            })
+            .catch(err => console.log(err))
     }
 
     const styles = useStyleSheet(styles2);
@@ -101,7 +104,9 @@ const BuyerRegister = ({ navigation }) => {
             </Layout>
             <Button
                 style={styles.signInButton}
-                size='giant'>
+                size='giant'
+                onPress={register}
+            >
                 Register
             </Button>
             <Button

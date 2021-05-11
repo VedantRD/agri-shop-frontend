@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Button, Card, Layout, Text, Icon } from '@ui-kitten/components';
+import { Card, Layout, Text, Icon } from '@ui-kitten/components';
 
 const ChooseProfile = ({ navigation }) => {
     return (

@@ -1,24 +1,9 @@
 import React from 'react';
-import { Icon, Layout, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
+import { Layout, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
+import { LogoutIcon, InfoIcon, BackIcon, MenuIcon } from './Icons'
 
-const BackIcon = (props) => (
-    <Icon {...props} name='arrow-back' />
-);
-
-const MenuIcon = (props) => (
-    <Icon {...props} name='more-vertical' />
-);
-
-const InfoIcon = (props) => (
-    <Icon {...props} name='info' />
-);
-
-const LogoutIcon = (props) => (
-    <Icon {...props} name='log-out' />
-);
-
-const Header = () => {
+const Header = ({ title, goback, navigation }) => {
 
     const [menuVisible, setMenuVisible] = React.useState(false);
 
@@ -44,15 +29,15 @@ const Header = () => {
     );
 
     const renderBackAction = () => (
-        <TopNavigationAction icon={BackIcon} />
+        <TopNavigationAction icon={BackIcon} onPress={navigation.goBack} />
     );
 
     return (
         <Layout level='1'>
             <TopNavigation
                 alignment='center'
-                title={evaProps => <Text category='h6'>Agri Shop</Text>}
-                accessoryLeft={renderBackAction}
+                title={evaProps => <Text category='h6'>{title}</Text>}
+                accessoryLeft={goback ? renderBackAction : null}
                 accessoryRight={renderRightActions}
             />
         </Layout>
