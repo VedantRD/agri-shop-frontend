@@ -117,8 +117,8 @@ const SellerRegister = ({ navigation }) => {
                 style={styles.signUpButton}
                 appearance='ghost'
                 status='basic'
-                onPress={() => navigation.navigate('SELLER_REGISTER')}>
-                Don't have an account? Create
+                onPress={() => navigation.replace('SELLER_LOGIN')}>
+                Already have an account? Login
             </Button>
         </KeyboardAvoidingView>
     )

@@ -53,7 +53,7 @@ const BuyerRegister = ({ navigation }) => {
                 <Text
                     category='h1'
                     status='control'>
-                    Farmer Register
+                    Customer Register
                 </Text>
                 <Text
                     style={styles.signInLabel}
@@ -108,8 +108,8 @@ const BuyerRegister = ({ navigation }) => {
                 style={styles.signUpButton}
                 appearance='ghost'
                 status='basic'
-                onPress={() => navigation.navigate('SELLER_REGISTER')}>
-                Don't have an account? Create
+                onPress={() => navigation.replace('SELLER_REGISTER')}>
+                Already have an account? Login
             </Button>
         </KeyboardAvoidingView>
     )
@@ -151,5 +151,5 @@ const styles2 = StyleService.create({
     },
     forgotPasswordButton: {
         paddingHorizontal: 0,
-    },
+    }
 })

@@ -96,7 +96,7 @@ const BuyerLogin = ({ navigation }) => {
                 style={styles.signUpButton}
                 appearance='ghost'
                 status='basic'
-                onPress={() => navigation.navigate('BUYER_REGISTER')}>
+                onPress={() => navigation.replace('BUYER_REGISTER')}>
                 Don't have an account? Create
             </Button>
         </KeyboardAvoidingView>

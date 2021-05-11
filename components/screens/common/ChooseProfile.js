@@ -1,23 +1,36 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import { Button, Layout, Text } from '@ui-kitten/components';
+import { StyleSheet, View } from 'react-native'
+import { Button, Card, Layout, Text, Icon } from '@ui-kitten/components';
 
 const ChooseProfile = ({ navigation }) => {
     return (
         <Layout level='4' style={styles.container}>
-            <Text category='h4' style={{ marginBottom: 25 }}>Choose Profile</Text>
-            <Button
-                style={styles.button}
-                onPress={() => navigation.navigate('SELLER_LOGIN')}
-            >
-                Farmer
-            </Button>
-            <Button
-                style={styles.button}
-                onPress={() => navigation.navigate('BUYER_LOGIN')}
-            >
-                Customer
-            </Button>
+            <Text category='h4' style={{ marginBottom: 50, textAlign: 'center' }}>Choose Profile</Text>
+            <View style={styles.row}>
+                <Card
+                    style={styles.card} status='primary'
+                    onPress={() => navigation.navigate('BUYER_LOGIN')}
+                >
+                    <Icon
+                        style={styles.icon}
+                        fill='#8F9BB3'
+                        name='person'
+                    />
+                    <Text category='h6' style={styles.cardText}>Customer</Text>
+                </Card>
+
+                <Card
+                    style={styles.card} status='success'
+                    onPress={() => navigation.navigate('SELLER_LOGIN')}
+                >
+                    <Icon
+                        style={styles.icon}
+                        fill='#8F9BB3'
+                        name='car'
+                    />
+                    <Text category='h6' style={styles.cardText}>Farmer</Text>
+                </Card>
+            </View>
         </Layout>
     )
 }
@@ -31,8 +44,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 15
     },
+    row: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
     button: {
-        width: '100%',
-        marginBottom: 15
-    }
+        width: '40%',
+        height: 125
+    },
+    card: {
+        flex: 1,
+        margin: 15
+    },
+    cardText: {
+        textAlign: 'center'
+    },
+    icon: {
+        width: 32,
+        height: 32,
+        alignSelf: 'center',
+        marginBottom: 15,
+        marginTop: 10
+    },
 })
