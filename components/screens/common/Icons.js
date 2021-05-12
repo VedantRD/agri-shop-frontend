@@ -52,3 +52,11 @@ export const CloseIcon = (props) => (
 export const BreifcaseIcon = (props) => (
     <Icon {...props} name='briefcase-outline' />
 );
+
+export const EditIcon = (props) => (
+    <Icon {...props} name='edit-outline' />
+);
+
+export const PlusOutlineIcon = (props) => (
+    <Icon {...props} name='plus-square-outline' />
+);

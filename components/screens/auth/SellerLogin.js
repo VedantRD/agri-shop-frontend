@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, TouchableWithoutFeedback, StatusBar } from 'react-native'
 import { Button, Input, Layout, StyleService, Text, useStyleSheet, Icon, useTheme } from '@ui-kitten/components';
 import { KeyboardAvoidingView } from '../common/extra';
