@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ListRenderItemInfo } from 'react-native';
 import { Button, Layout, List, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
 import { CartItem } from './CartItem';
 import Header from '../../common/Header'
@@ -66,7 +65,7 @@ const Cart = () => {
                 </Layout>
                 <Button
                     style={styles.checkoutButton}
-                    size='giant'>
+                    size='medium'>
                     CHECKOUT
             </Button>
             </Layout>
@@ -88,11 +87,11 @@ const themedStyle = StyleService.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginVertical: 0.5,
-        paddingVertical: 16,
+        paddingVertical: 8,
         paddingHorizontal: 16,
     },
     checkoutButton: {
         marginHorizontal: 16,
-        marginVertical: 16,
+        marginVertical: 8,
     },
 });

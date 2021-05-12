@@ -48,3 +48,7 @@ export const MinusIcon = (props) => (
 export const CloseIcon = (props) => (
     <Icon {...props} name='close-outline' />
 );
+
+export const BreifcaseIcon = (props) => (
+    <Icon {...props} name='briefcase-outline' />
+);

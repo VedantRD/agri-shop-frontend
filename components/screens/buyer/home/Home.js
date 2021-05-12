@@ -93,6 +93,15 @@ const themedStyles = StyleService.create({
         margin: 8,
         maxWidth: Dimensions.get('window').width - 16,
         backgroundColor: 'background-basic-color-1',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+
+        elevation: 4,
     },
     itemHeader: {
         height: 200,
