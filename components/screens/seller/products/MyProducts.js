@@ -1,7 +1,7 @@
 import React from 'react'
-import { Dimensions, ImageBackground, ListRenderItemInfo, View, StyleSheet } from 'react-native';
+import { Dimensions, ImageBackground, View } from 'react-native';
 import { Button, Card, Layout, List, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
-import { CartIcon } from '../../common/Icons';
+import { EditIcon } from '../../common/Icons';
 import Header from '../../common/Header'
 
 const MyProducts = ({ navigation }) => {
@@ -19,7 +19,6 @@ const MyProducts = ({ navigation }) => {
         <Card
             style={styles.productItem}
             header={() => renderItemHeader()}
-        // footer={() => renderItemFooter()}
         // onPress={() => navigation.navigate('PRODUCT_DETAILS')}
         >
             <Text category='h6' style={{ marginBottom: 5 }}>
@@ -27,31 +26,35 @@ const MyProducts = ({ navigation }) => {
             </Text>
             <Text
                 appearance='hint'
-                category='s1'>
-                Furniture
+                category='s1'
+                status='danger'
+            >
+                Only 3 Remaining
             </Text>
             <View style={styles.itemFooter}>
                 <Text category='h6'>
-                    ₹ 2001
+                    ₹ {info.item.price}
                 </Text>
-                {/* <Button
+                <Button
                     style={styles.iconButton}
-                    size='medium'
-                    accessoryLeft={CartIcon}
-                /> */}
+                    size='small'
+                    accessoryLeft={EditIcon}
+                >
+                    <Text category='h6' style={{ color: '#fff' }}>Edit Details</Text>
+                </Button>
             </View>
         </Card>
     );
 
     const products = [
-        { id: 1, name: 'boat headphones', category: 'electronics', price: 100 },
-        { id: 1, name: 'boat rockerz headphones', category: 'electronics', price: 100 },
-        { id: 1, name: 'boat headphones', category: 'electronics', price: 100 },
+        { id: 1, name: 'boat headphones 255 pro+', category: 'electronics', price: 1599 },
+        { id: 1, name: 'boat headphones 335', category: 'electronics', price: 1299 },
+        { id: 1, name: 'boat rockerz headphones', category: 'electronics', price: 1399 },
     ]
 
     return (
         <>
-            <Header title='Home' />
+            <Header title='My Products' />
             <Layout level='4' style={styles.container}>
                 <List
                     contentContainerStyle={styles.productList}
@@ -98,10 +101,9 @@ const themedStyles = StyleService.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 16,
-        // paddingHorizontal: 20,
     },
     iconButton: {
         paddingHorizontal: 0,
-        width: '25%'
+        width: '50%',
     },
 });

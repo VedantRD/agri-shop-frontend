@@ -1,4 +1,5 @@
 import React from 'react'
+import { StyleSheet } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
 
@@ -12,11 +13,12 @@ import Cart from '../../screens/buyer/cart/Cart';
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
     selectedIndex={state.index}
-    onSelect={index => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab title={'Home'} icon={HomeIcon} style={{ paddingVertical: 4 }} />
-    <BottomNavigationTab title={'Orders'} icon={BreifcaseIcon} style={{ paddingVertical: 4 }} />
-    <BottomNavigationTab title={'Cart'} icon={CartIcon} style={{ paddingVertical: 4 }} />
-    <BottomNavigationTab title={'Profile'} icon={PersonIcon} style={{ paddingVertical: 4 }} />
+    onSelect={index => navigation.navigate(state.routeNames[index])}
+  >
+    <BottomNavigationTab title='Home' icon={HomeIcon} style={styles.tab} />
+    <BottomNavigationTab title='Orders' icon={BreifcaseIcon} style={styles.tab} />
+    <BottomNavigationTab title='Cart' icon={CartIcon} style={styles.tab} />
+    <BottomNavigationTab title='Profile' icon={PersonIcon} style={styles.tab} />
   </BottomNavigation>
 );
 
@@ -30,3 +32,9 @@ const BuyerTabNavigator = () => (
 );
 
 export default BuyerTabNavigator
+
+const styles = StyleSheet.create({
+  tab: {
+    paddingVertical: 3
+  }
+})
