@@ -6,7 +6,7 @@ import { KeyboardAvoidingView } from '../../common/extra';
 import { UserContext } from '../../../theme/ApplyTheme'
 import axios from 'axios'
 import url from '../../../url'
-import Snackbar from 'react-native-snackbar';
+import snackbar from '../../common/Snackbar';
 
 const AddProduct = ({ navigation }) => {
 
@@ -31,30 +31,11 @@ const AddProduct = ({ navigation }) => {
         axios.post(`${url}/seller/addproduct`, { name, description, price, quantity, ownedBy: state._id })
             .then(res => {
                 if (res.data.status === 'success') {
-                    Snackbar.show({
-                        text: res.data.message,
-                        duration: Snackbar.LENGTH_LONG,
-                        backgroundColor: theme['color-success-default'],
-                        action: {
-                            text: 'OK',
-                            textColor: 'white',
-                            onPress: () => { Snackbar.dismiss() },
-                        },
-                    });
+                    snackbar({ type: res.data.status, message: res.data.message })
                     navigation.navigate('Seller_Home')
                 }
                 else {
-                    Snackbar.show({
-                        text: res.data.message,
-                        duration: Snackbar.LENGTH_LONG,
-                        backgroundColor: theme['color-danger-default'],
-                        action: {
-                            text: 'OK',
-                            textColor: 'white',
-                            onPress: () => { Snackbar.dismiss() },
-                        },
-                    });
-                    // console.log(res.data.message)
+                    snackbar({ type: res.data.status, message: res.data.message })
                 }
             })
             .catch(err => console.log(err))

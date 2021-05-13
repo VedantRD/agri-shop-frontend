@@ -2,12 +2,12 @@ import React, { useState, useContext } from 'react'
 import { StyleSheet, View, TouchableWithoutFeedback, StatusBar } from 'react-native'
 import { Button, Input, Layout, StyleService, Text, useStyleSheet, Icon, useTheme } from '@ui-kitten/components';
 import { KeyboardAvoidingView } from '../common/extra';
-import Snackbar from 'react-native-snackbar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
 import { PersonIcon, PhoneIcon } from '../common/Icons';
 import url from '../../url';
 import { UserContext } from '../../theme/ApplyTheme';
+import snackbar from '../common/Snackbar';
 
 const BuyerRegister = ({ navigation }) => {
 
@@ -23,16 +23,7 @@ const BuyerRegister = ({ navigation }) => {
         axios.post(`${url}/buyer/signup`, { mobileNo, password, name, address })
             .then(res => {
                 if (res.data.status === 'success') {
-                    Snackbar.show({
-                        text: res.data.message,
-                        duration: Snackbar.LENGTH_LONG,
-                        backgroundColor: theme['color-success-default'],
-                        action: {
-                            text: 'OK',
-                            textColor: 'white',
-                            onPress: () => { Snackbar.dismiss() },
-                        },
-                    });
+                    snackbar({ type: res.data.status, message: res.data.message })
                     res.data.user.role = 'buyer'
                     AsyncStorage.setItem('user', JSON.stringify(res.data.user))
                         .then(() => {
@@ -42,17 +33,7 @@ const BuyerRegister = ({ navigation }) => {
                         .catch(err => console.log(err))
                 }
                 else {
-                    Snackbar.show({
-                        text: res.data.message,
-                        duration: Snackbar.LENGTH_LONG,
-                        backgroundColor: theme['color-danger-default'],
-                        action: {
-                            text: 'OK',
-                            textColor: 'white',
-                            onPress: () => { Snackbar.dismiss() },
-                        },
-                    });
-                    // console.log(res.data.message)
+                    snackbar({ type: res.data.status, message: res.data.message })
                 }
             })
             .catch(err => console.log(err))

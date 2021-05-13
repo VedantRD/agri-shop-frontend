@@ -6,7 +6,7 @@ import Header from '../../common/Header'
 import { UserContext } from '../../../theme/ApplyTheme'
 import axios from 'axios';
 import url from '../../../url';
-import Snackbar from 'react-native-snackbar';
+import { snackbar } from '../../common/Snackbar'
 
 const Home = ({ navigation }) => {
 
@@ -27,16 +27,7 @@ const Home = ({ navigation }) => {
                         setProducts(res.data.products)
                     }
                     else {
-                        Snackbar.show({
-                            text: res.data.message,
-                            duration: Snackbar.LENGTH_LONG,
-                            backgroundColor: theme['color-danger-default'],
-                            action: {
-                                text: 'OK',
-                                textColor: 'white',
-                                onPress: () => { Snackbar.dismiss() },
-                            },
-                        });
+                        snackbar({ type: res.data.status, message: res.data.message })
                     }
                     setLoading(false)
                 })
