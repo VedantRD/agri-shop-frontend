@@ -5,8 +5,8 @@ import { BottomNavigation, BottomNavigationTab, Layout, Text } from '@ui-kitten/
 import Profile from '../../screens/seller/profile/Profile'
 const { Navigator, Screen } = createBottomTabNavigator();
 import { PersonIcon, BreifcaseIcon, HomeIcon, PlusOutlineIcon } from '../../screens/common/Icons'
-import MyProducts from '../../screens/seller/products/MyProducts'
 import AddProduct from '../../screens/seller/products/AddProduct';
+import Home from '../../screens/seller/home/Home';
 
 const OrdersScreen = () => (
   <Layout level='4' style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -27,11 +27,11 @@ const BottomTabBar = ({ navigation, state }) => (
 );
 
 const SellerTabNavigator = () => (
-  <Navigator tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name='Home' component={MyProducts} />
+  <Navigator tabBar={props => <BottomTabBar {...props} />} tabBarOptions={{ keyboardHidesTabBar: true }}>
+    <Screen name='Seller_Home' component={Home} />
     <Screen name='Add_Product' component={AddProduct} />
-    <Screen name='Orders' component={OrdersScreen} />
-    <Screen name='Profile' component={Profile} />
+    <Screen name='Seller_Orders' component={OrdersScreen} />
+    <Screen name='Seller_Profile' component={Profile} />
   </Navigator>
 );
 

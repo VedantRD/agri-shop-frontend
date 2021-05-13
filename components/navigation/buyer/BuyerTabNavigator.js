@@ -7,7 +7,7 @@ import Orders from '../../screens/buyer/orders/Orders'
 import HomeStack from './HomeStack'
 import Profile from '../../screens/buyer/profile/Profile';
 const { Navigator, Screen } = createBottomTabNavigator();
-import { PersonIcon, BellIcon, HomeIcon, CartIcon, BreifcaseIcon } from '../../screens/common/Icons'
+import { PersonIcon, HomeIcon, CartIcon, BreifcaseIcon } from '../../screens/common/Icons'
 import Cart from '../../screens/buyer/cart/Cart';
 
 const BottomTabBar = ({ navigation, state }) => (
@@ -23,7 +23,7 @@ const BottomTabBar = ({ navigation, state }) => (
 );
 
 const BuyerTabNavigator = () => (
-  <Navigator tabBar={props => <BottomTabBar {...props} />}>
+  <Navigator tabBar={props => <BottomTabBar {...props} />} tabBarOptions={{ keyboardHidesTabBar: true }}>
     <Screen name='Home' component={HomeStack} />
     <Screen name='Orders' component={Orders} />
     <Screen name='Cart' component={Cart} />

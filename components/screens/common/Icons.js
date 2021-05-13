@@ -57,6 +57,10 @@ export const EditIcon = (props) => (
     <Icon {...props} name='edit-outline' />
 );
 
+export const DeleteIcon = (props) => (
+    <Icon {...props} name='trash-outline' />
+);
+
 export const PlusOutlineIcon = (props) => (
     <Icon {...props} name='plus-square-outline' />
 );
