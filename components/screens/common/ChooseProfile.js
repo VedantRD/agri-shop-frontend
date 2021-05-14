@@ -5,6 +5,21 @@ import { Card, Layout, Text, Icon } from '@ui-kitten/components';
 const ChooseProfile = ({ navigation }) => {
     return (
         <Layout level='4' style={styles.container}>
+            <Text style={{
+                color: '#0D47A1',
+                fontSize: 60,
+                fontWeight: 'bold',
+                fontFamily: 'sans-serif',
+                textShadowRadius: 2,
+                shadowColor: '#4CAF50',
+                textShadowOffset: { width: 4, height: 4 },
+                textTransform: 'capitalize',
+                textAlignVertical: 'top',
+                marginBottom: 120,
+                textAlign: 'justify'
+            }}>
+                AgriShop
+            </Text>
             <Text category='h4' style={{ marginBottom: 50, textAlign: 'center' }}>Choose Profile</Text>
             <View style={styles.row}>
                 <Card
