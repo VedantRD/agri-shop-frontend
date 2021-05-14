@@ -18,6 +18,17 @@ const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
     selectedIndex={state.index}
     onSelect={index => navigation.navigate(state.routeNames[index])}
+    appearance='noIndicator'
+    style={{
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 15,
+    }}
   >
     <BottomNavigationTab title='Home' icon={HomeIcon} style={styles.tab} />
     <BottomNavigationTab title='Add Product' icon={PlusOutlineIcon} style={styles.tab} />
@@ -39,6 +50,6 @@ export default SellerTabNavigator
 
 const styles = StyleSheet.create({
   tab: {
-    paddingVertical: 3
+    paddingVertical: 1
   }
 })

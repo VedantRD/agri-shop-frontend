@@ -3,7 +3,7 @@ import { Layout, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigationActio
 import { StyleSheet } from 'react-native';
 import { LogoutIcon, InfoIcon, BackIcon, MenuIcon } from './Icons'
 
-const Header = ({ title, goback, navigation }) => {
+const Header = ({ title, goback, navigation, menu, titleAlignLeft }) => {
 
     const [menuVisible, setMenuVisible] = React.useState(false);
 
@@ -35,10 +35,14 @@ const Header = ({ title, goback, navigation }) => {
     return (
         <Layout level='1'>
             <TopNavigation
-                alignment='center'
-                title={evaProps => <Text category='h6'>{title}</Text>}
+                alignment={titleAlignLeft ? 'start' : 'center'}
+                title={evaProps =>
+                    <Text category='h6' style={{ marginLeft: titleAlignLeft ? 10 : 0 }}>
+                        {title}
+                    </Text>
+                }
                 accessoryLeft={goback ? renderBackAction : null}
-                accessoryRight={renderRightActions}
+                accessoryRight={menu ? renderRightActions : null}
             />
         </Layout>
     );

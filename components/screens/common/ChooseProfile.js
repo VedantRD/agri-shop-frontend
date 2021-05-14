@@ -14,9 +14,8 @@ const ChooseProfile = ({ navigation }) => {
                 shadowColor: '#4CAF50',
                 textShadowOffset: { width: 4, height: 4 },
                 textTransform: 'capitalize',
-                textAlignVertical: 'top',
-                marginBottom: 120,
-                textAlign: 'justify'
+                marginBottom: 100,
+                marginTop: 50
             }}>
                 AgriShop
             </Text>
@@ -55,7 +54,7 @@ export default ChooseProfile
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        // justifyContent: 'center',
         alignItems: 'center',
         padding: 15
     },

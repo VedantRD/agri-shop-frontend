@@ -7,6 +7,7 @@ import { UserContext } from '../../../theme/ApplyTheme'
 import axios from 'axios';
 import url from '../../../url';
 import { snackbar } from '../../common/Snackbar'
+import MySpinner from '../../common/MySpinner';
 
 const Home = ({ navigation }) => {
 
@@ -14,8 +15,8 @@ const Home = ({ navigation }) => {
     const theme = useTheme()
     const { state } = useContext(UserContext)
     const [loading, setLoading] = useState(true)
-
     const [products, setProducts] = useState([])
+
 
     // get seller products
     useEffect(() => {
@@ -83,9 +84,7 @@ const Home = ({ navigation }) => {
         <>
             <Header title='My Products' />
             {loading ?
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Spinner size='large' />
-                </View>
+                <MySpinner />
                 :
                 <Layout level='4' style={styles.container}>
                     <List

@@ -1,25 +1,39 @@
-import React from 'react'
-import { Dimensions, ImageBackground, ListRenderItemInfo, View, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { Dimensions, ImageBackground, View, } from 'react-native';
 import { Button, Card, Layout, List, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
-import { PhoneIcon, CartIcon } from '../../common/Icons';
+import { CartIcon } from '../../common/Icons';
 import Header from '../../common/Header'
+import { UserContext } from '../../../theme/ApplyTheme'
+import axios from 'axios';
+import url from '../../../url';
+import { snackbar } from '../../common/Snackbar'
+import MySpinner from '../../common/MySpinner';
 
 const Home = ({ navigation }) => {
 
+    const [loading, setLoading] = useState(false)
+    const [products, setProducts] = useState([])
+
     const styles = useStyleSheet(themedStyles);
 
-    const renderItemFooter = () => (
-        <View style={styles.itemFooter}>
-            <Text category='s1'>
-                ₹ 200
-            </Text>
-            <Button
-                style={styles.iconButton}
-                size='small'
-                accessoryLeft={CartIcon}
-            />
-        </View>
-    );
+    // get all products
+    useEffect(() => {
+        setLoading(true)
+        const unsubscribe = navigation.addListener('focus', () => {
+            axios.get(`${url}/buyer/products`)
+                .then(res => {
+                    if (res.data.status === 'success') {
+                        setProducts(res.data.products)
+                    }
+                    else {
+                        snackbar({ type: res.data.status, message: res.data.message })
+                    }
+                })
+                .catch(err => console.log(err))
+        })
+        setLoading(false)
+        return unsubscribe;
+    }, [navigation])
 
     const renderItemHeader = () => (
         <ImageBackground
@@ -32,10 +46,9 @@ const Home = ({ navigation }) => {
         <Card
             style={styles.productItem}
             header={() => renderItemHeader()}
-            // footer={() => renderItemFooter()}
             onPress={() => navigation.navigate('PRODUCT_DETAILS')}
         >
-            <Text category='h6' style={{ marginBottom: 5 }}>
+            <Text category='h5' style={{ marginBottom: 5 }}>
                 {info.item.name}
             </Text>
             <Text
@@ -44,8 +57,8 @@ const Home = ({ navigation }) => {
                 Furniture
             </Text>
             <View style={styles.itemFooter}>
-                <Text category='h6'>
-                    ₹ 2001
+                <Text category='h5'>
+                    ₹ {info.item.price}
                 </Text>
                 <Button
                     style={styles.iconButton}
@@ -56,23 +69,21 @@ const Home = ({ navigation }) => {
         </Card>
     );
 
-    const products = [
-        { id: 1, name: 'boat headphones', category: 'electronics', price: 100 },
-        { id: 1, name: 'boat rockerz headphones', category: 'electronics', price: 100 },
-        { id: 1, name: 'boat headphones', category: 'electronics', price: 100 },
-    ]
-
     return (
         <>
             <Header title='Home' />
-            <Layout level='4' style={styles.container}>
-                <List
-                    contentContainerStyle={styles.productList}
-                    data={products}
-                    numColumns={1}
-                    renderItem={renderProductItem}
-                />
-            </Layout>
+            {loading ?
+                <MySpinner />
+                :
+                <Layout level='4' style={styles.container}>
+                    <List
+                        contentContainerStyle={styles.productList}
+                        data={products}
+                        numColumns={1}
+                        renderItem={renderProductItem}
+                    />
+                </Layout>
+            }
         </>
     )
 }
@@ -85,13 +96,12 @@ const themedStyles = StyleService.create({
         backgroundColor: 'background-basic-color-2',
     },
     productList: {
-        paddingHorizontal: 4,
-        paddingVertical: 8,
+        paddingHorizontal: 8,
+        paddingTop: 8,
     },
     productItem: {
         flex: 1,
-        margin: 8,
-        maxWidth: Dimensions.get('window').width - 16,
+        marginBottom: 8,
         backgroundColor: 'background-basic-color-1',
         shadowColor: "#000",
         shadowOffset: {
@@ -100,8 +110,7 @@ const themedStyles = StyleService.create({
         },
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
-
-        elevation: 4,
+        elevation: 2,
     },
     itemHeader: {
         height: 200,
@@ -110,11 +119,10 @@ const themedStyles = StyleService.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: 16,
+        paddingTop: 8,
         // paddingHorizontal: 20,
     },
     iconButton: {
-        paddingHorizontal: 0,
         width: '25%'
     },
 });
