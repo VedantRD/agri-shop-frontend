@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { Layout, Text, Input, Button, useTheme, Select, SelectItem, IndexPath } from '@ui-kitten/components';
+import { StyleSheet } from 'react-native'
+import { Layout, Text, Input, Button, useTheme, Select, SelectItem } from '@ui-kitten/components';
 import Header from '../../common/Header'
 import { KeyboardAvoidingView } from '../../common/extra';
 import { UserContext } from '../../../theme/ApplyTheme'
@@ -64,7 +64,6 @@ const AddProduct = ({ navigation }) => {
         <KeyboardAvoidingView>
             <Header title='Add Product' />
             <Layout level='4' style={styles.container}>
-                {/* <Text category='h4' style={styles.title}>Add New Product</Text> */}
                 <Text style={styles.label}>Product Name</Text>
                 <Input
                     placeholder='Product Name'
