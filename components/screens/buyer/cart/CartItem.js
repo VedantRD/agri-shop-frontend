@@ -8,7 +8,7 @@ export const CartItem = (props) => {
     const { style, product, index, onProductChange, onRemove, ...listItemProps } = props;
 
     const decrementButtonEnabled = () => {
-        return product.amount > 1;
+        return product.quantity > 1;
     };
 
     const onRemoveButtonPress = () => {
@@ -17,10 +17,8 @@ export const CartItem = (props) => {
 
     const onMinusButtonPress = () => {
         const updatedProduct = {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            amount: product.amount - 1,
+            product: product.product,
+            quantity: product.quantity - 1
         }
 
         onProductChange(updatedProduct, index);
@@ -28,10 +26,8 @@ export const CartItem = (props) => {
 
     const onPlusButtonPress = () => {
         const updatedProduct = {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            amount: product.amount + 1,
+            product: product.product,
+            quantity: product.quantity + 1
         }
 
         onProductChange(updatedProduct, index);
@@ -50,10 +46,10 @@ export const CartItem = (props) => {
                     category='h6'
                     style={{ marginBottom: 5 }}
                 >
-                    {product.name}
+                    {product.product.name}
                 </Text>
                 <Text category='s1'>
-                    ₹ {product.price}
+                    ₹ {product.product.price}
                 </Text>
                 <View style={styles.amountContainer}>
                     <Button
@@ -66,7 +62,7 @@ export const CartItem = (props) => {
                     <Text
                         style={styles.amount}
                         category='s2'>
-                        {`${product.amount}`}
+                        {`${product.quantity}`}
                     </Text>
                     <Button
                         style={[styles.iconButton, styles.amountButton]}

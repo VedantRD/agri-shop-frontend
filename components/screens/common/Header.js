@@ -33,7 +33,16 @@ const Header = ({ title, goback, navigation, menu, titleAlignLeft }) => {
     );
 
     return (
-        <Layout level='1'>
+        <Layout level='1' style={{
+            shadowColor: "#000",
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.23,
+            shadowRadius: 2.62,
+            elevation: 4,
+        }}>
             <TopNavigation
                 alignment={titleAlignLeft ? 'start' : 'center'}
                 title={evaProps =>

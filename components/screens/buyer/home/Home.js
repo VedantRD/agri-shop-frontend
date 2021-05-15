@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Dimensions, ImageBackground, View, } from 'react-native';
 import { Button, Card, Layout, List, StyleService, Text, useStyleSheet } from '@ui-kitten/components';
 import { CartIcon } from '../../common/Icons';
@@ -6,15 +6,34 @@ import Header from '../../common/Header'
 import { UserContext } from '../../../theme/ApplyTheme'
 import axios from 'axios';
 import url from '../../../url';
-import { snackbar } from '../../common/Snackbar'
+import snackbar from '../../common/Snackbar'
 import MySpinner from '../../common/MySpinner';
 
 const Home = ({ navigation }) => {
 
     const [loading, setLoading] = useState(false)
     const [products, setProducts] = useState([])
+    const { state } = useContext(UserContext)
 
     const styles = useStyleSheet(themedStyles);
+
+    // add product to cart
+    const addToCart = (product) => {
+        setLoading(true)
+        let item = { product, quantity: 1 }
+        axios.post(`${url}/buyer/cart/add`, { item, cartId: state.cartId })
+            .then(res => {
+                if (res.data.status === 'success') {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                    console.log(res.data)
+                }
+                else {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                }
+            })
+            .catch(err => console.log(err))
+        setLoading(false)
+    }
 
     // get all products
     useEffect(() => {
@@ -46,7 +65,7 @@ const Home = ({ navigation }) => {
         <Card
             style={styles.productItem}
             header={() => renderItemHeader()}
-            onPress={() => navigation.navigate('PRODUCT_DETAILS')}
+            onPress={() => navigation.navigate('PRODUCT_DETAILS', { product: info.item })}
         >
             <Text category='h5' style={{ marginBottom: 5 }}>
                 {info.item.name}
@@ -64,6 +83,7 @@ const Home = ({ navigation }) => {
                     style={styles.iconButton}
                     size='medium'
                     accessoryLeft={CartIcon}
+                    onPress={() => addToCart(info.item)}
                 />
             </View>
         </Card>
@@ -71,7 +91,7 @@ const Home = ({ navigation }) => {
 
     return (
         <>
-            <Header title='Home' />
+            {/* <Header title='Home' /> */}
             {loading ?
                 <MySpinner />
                 :

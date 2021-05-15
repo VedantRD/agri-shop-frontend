@@ -6,30 +6,30 @@ import axios from 'axios';
 import url from '../../../url';
 import { UserContext } from '../../../theme/ApplyTheme';
 import MySpinner from '../../common/MySpinner';
+import snackbar from '../../common/Snackbar';
 
 const Cart = ({ navigation }) => {
 
     const styles = useStyleSheet(themedStyle);
-    const [items, setItems] = useState([
-        { id: 1, name: 'boat headphones', category: 'electronics', price: 100, amount: 1 },
-        { id: 1, name: 'boat headphones', category: 'electronics', price: 100, amount: 1 },
-        { id: 1, name: 'boat headphones', category: 'electronics', price: 200, amount: 1 },
-    ])
+    const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
     const { state } = useContext(UserContext)
 
     const totalCost = () => {
-        return items.reduce((acc, item) => acc + item.price * item.amount, 0);
+        return items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
     };
 
     const onItemRemove = (item, index) => {
         items.splice(index, 1);
-        setItems([...items]);
+        // setItems([...items]);
+        console.log(items.length)
+        updateCart([...items])
     };
 
     const onItemChange = (item, index) => {
         items[index] = item;
-        setItems([...items]);
+        // setItems([...items]);
+        updateCart([...items])
     };
 
     const renderProductItem = (info) => (
@@ -42,7 +42,24 @@ const Cart = ({ navigation }) => {
         />
     );
 
-    // get all products
+    const updateCart = (items) => {
+        setLoading(true)
+        axios.post(`${url}/buyer/cart/update`, { cartId: state.cartId, items })
+            .then(res => {
+                if (res.data.status === 'success') {
+                    setItems(res.data.cart.items)
+                    // snackbar({ type: res.data.status, message: res.data.message })
+                    console.log(res.data.cart.items.length, 'items =', res.data.cart.items)
+                }
+                else {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                }
+            })
+            .catch(err => console.log(err))
+        setLoading(false)
+    }
+
+    // get user cart
     useEffect(() => {
         setLoading(true)
         const unsubscribe = navigation.addListener('focus', () => {
@@ -54,10 +71,10 @@ const Cart = ({ navigation }) => {
                     else {
                         snackbar({ type: res.data.status, message: res.data.message })
                     }
-                    setLoading(false)
                 })
                 .catch(err => console.log(err))
         })
+        setLoading(false)
         return unsubscribe;
     }, [navigation])
 

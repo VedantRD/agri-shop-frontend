@@ -64,3 +64,11 @@ export const DeleteIcon = (props) => (
 export const PlusOutlineIcon = (props) => (
     <Icon {...props} name='plus-square-outline' />
 );
+
+export const ChevronRightIcon = (props) => (
+    <Icon {...props} name='chevron-right-outline' />
+);
+
+export const ChevronLeftIcon = (props) => (
+    <Icon {...props} name='chevron-left-outline' />
+);

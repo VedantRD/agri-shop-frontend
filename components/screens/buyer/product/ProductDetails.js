@@ -1,11 +1,37 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { ImageBackground, View } from 'react-native';
 import { Button, Layout, StyleService, Text, useStyleSheet, } from '@ui-kitten/components';
 import Header from '../../common/Header';
+import axios from 'axios';
+import url from '../../../url';
+import { UserContext } from '../../../theme/ApplyTheme';
+import snackbar from '../../common/Snackbar';
+import MySpinner from '../../common/MySpinner';
 
-const ProductDetails = ({ navigation }) => {
+const ProductDetails = ({ navigation, route }) => {
 
     const styles = useStyleSheet(themedStyles);
+    const { product } = route.params
+    const { state } = useContext(UserContext)
+    const [loading, setLoading] = useState(false)
+
+    // add product to cart
+    const addToCart = () => {
+        setLoading(true)
+        let item = { product, quantity: 1 }
+        axios.post(`${url}/buyer/cart/add`, { item, cartId: state.cartId })
+            .then(res => {
+                if (res.data.status === 'success') {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                    console.log(res.data)
+                }
+                else {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                }
+            })
+            .catch(err => console.log(err))
+        setLoading(false)
+    }
 
     return (
         <>
@@ -14,54 +40,54 @@ const ProductDetails = ({ navigation }) => {
                 goback={true}
                 navigation={navigation}
             />
-            <Layout style={styles.header}>
-                <ImageBackground
-                    style={styles.image}
-                    source={{ uri: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80' }}
-                />
-                <Layout
-                    style={styles.detailsContainer}
-                    level='1'>
-                    <View style={styles.row}>
-                        <Text
-                            style={styles.name}
-                            category='h5'>
-                            Boat Rockerz Headphones 255 pro+
-                        </Text>
-                        <Text
-                            style={styles.price}
-                            category='h4'>
-                            ₹ 200000
-                        </Text>
+            {loading ?
+                <MySpinner />
+                :
+                <>
+                    <Layout style={styles.header}>
+                        <ImageBackground
+                            style={styles.image}
+                            source={{ uri: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80' }}
+                        />
+                        <Layout
+                            style={styles.detailsContainer}
+                            level='1'>
+                            <View style={styles.row}>
+                                <Text
+                                    style={styles.name}
+                                    category='h5'>
+                                    {product.name}
+                                </Text>
+                                <Text
+                                    style={styles.price}
+                                    category='h4'>
+                                    ₹ {product.price}
+                                </Text>
+                            </View>
+                            <Text
+                                style={styles.subtitle}
+                                appearance='hint'
+                                category='s1'>
+                                Electronics
+                            </Text>
+                            <Text
+                                style={styles.description}
+                                appearance='hint'>
+                                {product.description}
+                            </Text>
+                        </Layout>
+                    </Layout>
+                    <View style={styles.actionContainer}>
+                        <Button
+                            style={styles.actionButton}
+                            size='large'
+                            onPress={addToCart}
+                        >
+                            ADD TO CART
+                        </Button>
                     </View>
-                    <Text
-                        style={styles.subtitle}
-                        appearance='hint'
-                        category='s1'>
-                        Electronics
-                    </Text>
-                    <Text
-                        style={styles.description}
-                        appearance='hint'>
-                        Very nice product. buy it.
-                    </Text>
-                </Layout>
-            </Layout>
-            <View style={styles.actionContainer}>
-                <Button
-                    style={styles.actionButton}
-                    size='large'
-                >
-                    BUY
-                </Button>
-                <Button
-                    style={[styles.actionButton, { backgroundColor: '#fff' }]}
-                    size='large'
-                    appearance='outline'
-                >
-                    ADD TO CART
-                </Button>
-            </View>
+                </>
+            }
         </>
     )
 }
@@ -102,14 +128,12 @@ const themedStyles = StyleService.create({
         marginVertical: 16,
     },
     actionContainer: {
-        flexDirection: 'row',
         paddingVertical: 16,
-        paddingHorizontal: 10,
+        paddingHorizontal: 16,
         backgroundColor: '#fff'
     },
     actionButton: {
-        flex: 1,
-        marginHorizontal: 6,
+        // marginHorizontal: 6,
     },
     sectionLabel: {
         marginVertical: 8,

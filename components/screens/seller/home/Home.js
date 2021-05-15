@@ -30,10 +30,10 @@ const Home = ({ navigation }) => {
                     else {
                         snackbar({ type: res.data.status, message: res.data.message })
                     }
-                    setLoading(false)
                 })
                 .catch(err => console.log(err))
         })
+        setLoading(false)
         return unsubscribe;
     }, [navigation])
 
