@@ -119,7 +119,7 @@ const BuyerRegister = ({ navigation }) => {
                 style={styles.signUpButton}
                 appearance='ghost'
                 status='basic'
-                onPress={() => navigation.replace('SELLER_REGISTER')}>
+                onPress={() => navigation.replace('BUYER_LOGIN')}>
                 Already have an account? Login
             </Button>
         </KeyboardAvoidingView>

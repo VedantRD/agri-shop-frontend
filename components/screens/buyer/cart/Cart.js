@@ -60,19 +60,23 @@ const Cart = ({ navigation }) => {
     }
 
     const placeOrder = () => {
-        setLoading(true)
-        axios.post(`${url}/buyer/order/create`, { buyerId: state._id, items, buyerAddress: state.address, sellerId: items[0].product.ownedBy, total: totalCost() })
-            .then(res => {
-                if (res.data.status === 'success') {
-                    snackbar({ type: res.data.status, message: res.data.message })
-                    setItems([])
-                }
-                else {
-                    snackbar({ type: res.data.status, message: res.data.message })
-                }
-            })
-            .catch(err => console.log(err))
-        setLoading(false)
+        if (items.length === 0) {
+            snackbar({ type: 'failed', message: 'Your cart is empty' })
+        } else {
+            setLoading(true)
+            axios.post(`${url}/buyer/order/create`, { buyerId: state._id, items, buyerAddress: state.address, sellerId: items[0].product.ownedBy, total: totalCost() })
+                .then(res => {
+                    if (res.data.status === 'success') {
+                        snackbar({ type: res.data.status, message: res.data.message })
+                        setItems([])
+                    }
+                    else {
+                        snackbar({ type: res.data.status, message: res.data.message })
+                    }
+                })
+                .catch(err => console.log(err))
+            setLoading(false)
+        }
     }
 
     // get user cart

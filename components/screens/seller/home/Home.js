@@ -86,6 +86,7 @@ const Home = ({ navigation }) => {
                         style={[styles.iconButton, { marginRight: 15 }]}
                         size='medium'
                         accessoryLeft={EditIcon}
+                        onPress={() => navigation.navigate('EDIT_DETAILS', { product: info.item })}
                     />
                     <Button
                         style={styles.iconButton}

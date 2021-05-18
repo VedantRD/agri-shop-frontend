@@ -34,7 +34,7 @@ const ChooseProfile = ({ navigation }) => {
                 AgriShop
             </Text> */}
             <StatusBar
-                backgroundColor="rgba(98, 0, 238, 0.08)"
+                backgroundColor="#D9E4FF"
                 barStyle="dark-content"
             />
             <View style={styles.logoContainer}>
@@ -93,7 +93,7 @@ const themedStyles = StyleService.create({
         flex: 1,
         alignItems: 'center',
         padding: 15,
-        backgroundColor: 'rgba(98, 0, 238, 0.08)'
+        backgroundColor: 'color-primary-200'
     },
     logoContainer: {
         flex: 2,
