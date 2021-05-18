@@ -103,6 +103,7 @@ const SellerLogin = ({ navigation }) => {
                 style={styles.signInButton}
                 size='giant'
                 onPress={login}
+                status='primary'
             >
                 LOGIN
             </Button>

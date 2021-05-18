@@ -6,7 +6,7 @@ import Header from '../../common/Header'
 import { UserContext } from '../../../theme/ApplyTheme'
 import axios from 'axios';
 import url from '../../../url';
-import { snackbar } from '../../common/Snackbar'
+import snackbar from '../../common/Snackbar'
 import MySpinner from '../../common/MySpinner';
 
 const Home = ({ navigation }) => {
@@ -17,6 +17,24 @@ const Home = ({ navigation }) => {
     const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([])
 
+    const deleteProduct = (productId, index) => {
+        console.log('deleting product')
+        console.log(productId, index)
+        setLoading(true)
+        axios.post(`${url}/seller/deleteproduct`, { productId })
+            .then(res => {
+                if (res.data.status === 'success') {
+                    products.splice(index, 1);
+                    setProducts([...products])
+                    snackbar({ type: res.data.status, message: res.data.message })
+                }
+                else {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                }
+            })
+            .catch(err => console.log(err))
+        setLoading(false)
+    }
 
     // get seller products
     useEffect(() => {
@@ -74,6 +92,7 @@ const Home = ({ navigation }) => {
                         size='medium'
                         accessoryLeft={DeleteIcon}
                         status='danger'
+                        onPress={() => deleteProduct(info.item._id, info.index)}
                     />
                 </View>
             </View>
@@ -107,8 +126,8 @@ const themedStyles = StyleService.create({
         backgroundColor: 'background-basic-color-2',
     },
     productList: {
-        paddingHorizontal: 4,
-        paddingVertical: 8,
+        // paddingHorizontal: 4,
+        // paddingVertical: 8,
     },
     productItem: {
         flex: 1,

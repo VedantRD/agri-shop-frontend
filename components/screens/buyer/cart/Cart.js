@@ -16,7 +16,7 @@ const Cart = ({ navigation }) => {
     const { state } = useContext(UserContext)
 
     const totalCost = () => {
-        return items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+        return items.reduce((acc, item) => item.product ? (acc + item.product.price * item.quantity) : 0, 0);
     };
 
     const onItemRemove = (item, index) => {
@@ -59,6 +59,22 @@ const Cart = ({ navigation }) => {
         setLoading(false)
     }
 
+    const placeOrder = () => {
+        setLoading(true)
+        axios.post(`${url}/buyer/order/create`, { buyerId: state._id, items, buyerAddress: state.address, sellerId: items[0].product.ownedBy, total: totalCost() })
+            .then(res => {
+                if (res.data.status === 'success') {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                    setItems([])
+                }
+                else {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                }
+            })
+            .catch(err => console.log(err))
+        setLoading(false)
+    }
+
     // get user cart
     useEffect(() => {
         setLoading(true)
@@ -67,6 +83,7 @@ const Cart = ({ navigation }) => {
                 .then(res => {
                     if (res.data.status === 'success') {
                         setItems(res.data.cart.items)
+                        console.log(res.data.cart)
                     }
                     else {
                         snackbar({ type: res.data.status, message: res.data.message })
@@ -109,7 +126,9 @@ const Cart = ({ navigation }) => {
                             </Text>
                             <Button
                                 style={styles.checkoutButton}
-                                size='medium'>
+                                size='medium'
+                                onPress={placeOrder}
+                            >
                                 ORDER
                             </Button>
                         </Layout>

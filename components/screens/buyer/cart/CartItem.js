@@ -42,35 +42,41 @@ export const CartItem = (props) => {
                 source={{ uri: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80' }}
             />
             <View style={styles.detailsContainer}>
-                <Text
-                    category='h6'
-                    style={{ marginBottom: 5 }}
-                >
-                    {product.product.name}
-                </Text>
-                <Text category='s1'>
-                    ₹ {product.product.price}
-                </Text>
-                <View style={styles.amountContainer}>
-                    <Button
-                        style={[styles.iconButton, styles.amountButton]}
-                        size='tiny'
-                        accessoryLeft={MinusIcon}
-                        onPress={onMinusButtonPress}
-                        disabled={!decrementButtonEnabled()}
-                    />
-                    <Text
-                        style={styles.amount}
-                        category='s2'>
-                        {`${product.quantity}`}
-                    </Text>
-                    <Button
-                        style={[styles.iconButton, styles.amountButton]}
-                        size='tiny'
-                        accessoryLeft={PlusIcon}
-                        onPress={onPlusButtonPress}
-                    />
-                </View>
+                {product.product !== null ?
+                    <>
+                        <Text
+                            category='h6'
+                            style={{ marginBottom: 5 }}
+                        >
+                            {product.product.name}
+                        </Text>
+                        <Text category='s1'>
+                            ₹ {product.product.price}
+                        </Text>
+                        <View style={styles.amountContainer}>
+                            <Button
+                                style={[styles.iconButton, styles.amountButton]}
+                                size='tiny'
+                                accessoryLeft={MinusIcon}
+                                onPress={onMinusButtonPress}
+                                disabled={!decrementButtonEnabled()}
+                            />
+                            <Text
+                                style={styles.amount}
+                                category='s2'>
+                                {`${product.quantity}`}
+                            </Text>
+                            <Button
+                                style={[styles.iconButton, styles.amountButton]}
+                                size='tiny'
+                                accessoryLeft={PlusIcon}
+                                onPress={onPlusButtonPress}
+                            />
+                        </View>
+                    </>
+                    :
+                    <Text>Product No longer available</Text>
+                }
             </View>
             <Button
                 style={[styles.iconButton, styles.removeButton]}

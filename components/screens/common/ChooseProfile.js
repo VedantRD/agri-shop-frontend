@@ -35,7 +35,7 @@ const ChooseProfile = ({ navigation }) => {
             </Text> */}
             <StatusBar
                 backgroundColor="rgba(98, 0, 238, 0.08)"
-                barStyle="light-content"
+                barStyle="dark-content"
             />
             <View style={styles.logoContainer}>
                 <Image source={require('../../assets/shop-1.jpg')} style={styles.logo} />
@@ -50,8 +50,8 @@ const ChooseProfile = ({ navigation }) => {
                         <Image source={require('../../assets/customer-1.jpg')} style={styles.cardImage} />
                         <View style={styles.cardText}>
                             <Text category='h5' style={styles.cardText}>Customer</Text>
-                            <Text appearance='hint' category="c1" style={[styles.cardText, { marginRight: 90 }]}>
-                                Want to buy fresh vegetables and friuts at reasonable rates from direct farmer delivered at home safely
+                            <Text appearance='hint' category="c1" style={[styles.cardSubtitle]}>
+                                Buy fresh vegetables and fruits at reasonable rates from direct farmer
                             </Text>
                         </View>
                     </View>
@@ -65,8 +65,8 @@ const ChooseProfile = ({ navigation }) => {
                         <Image source={require('../../assets/farmer-1.jpg')} style={styles.cardImage} />
                         <View style={styles.cardText}>
                             <Text category='h5' style={styles.cardText}>Farmer</Text>
-                            <Text appearance='hint' category="c1" style={[styles.cardText, { marginRight: 90 }]}>
-                                Want to sell farm products such as vegetables,fruits and more things directly to the customers
+                            <Text appearance='hint' category="c1" style={[styles.cardSubtitle]}>
+                                Sell farm products such as vegetables, fruits etc directly to the customers
                             </Text>
                         </View>
                     </View>
@@ -172,7 +172,12 @@ const themedStyles = StyleService.create({
         marginVertical: -16,
     },
     cardText: {
-        marginLeft: 10
+        marginLeft: 10,
+    },
+    cardSubtitle: {
+        marginTop: 10,
+        marginLeft: 10,
+        marginRight: 90,
     },
     icon: {
         width: 32,
