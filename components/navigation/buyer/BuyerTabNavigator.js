@@ -2,8 +2,8 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
-import Orders from '../../screens/buyer/orders/Orders'
 import HomeStack from './HomeStack'
+import BuyerOrderStack from './BuyerOrderStack'
 import Profile from '../../screens/buyer/profile/Profile';
 const { Navigator, Screen } = createBottomTabNavigator();
 import { PersonIcon, HomeIcon, CartIcon, BreifcaseIcon } from '../../screens/common/Icons'
@@ -37,7 +37,7 @@ const BuyerTabNavigator = () => (
     keyboardHidesTabBar: true
   }}>
     <Screen name='Home' component={HomeStack} />
-    <Screen name='Orders' component={Orders} />
+    <Screen name='Orders' component={BuyerOrderStack} />
     <Screen name='Cart' component={Cart} />
     <Screen name='Profile' component={Profile} />
   </Navigator>

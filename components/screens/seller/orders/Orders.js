@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native';
-import { Card, List, Text, Layout } from '@ui-kitten/components';
+import { Card, List, Text, Layout, Button, Icon } from '@ui-kitten/components';
 import axios from 'axios';
 import url from '../../../url';
 import { UserContext } from '../../../theme/ApplyTheme';
@@ -18,7 +18,7 @@ const Orders = ({ navigation }) => {
     useEffect(() => {
         setLoading(true)
         const unsubscribe = navigation.addListener('focus', () => {
-            axios.get(`${url}/buyer/${state._id}/orders`)
+            axios.get(`${url}/seller/${state._id}/orders`)
                 .then(res => {
                     if (res.data.status === 'success') {
                         setOrders(res.data.orders)
@@ -34,41 +34,73 @@ const Orders = ({ navigation }) => {
         return unsubscribe;
     }, [navigation])
 
+    const updateOrderStatus = (status, orderId, index) => {
+        axios.post(`${url}/seller/order/update_status`, { orderId, status })
+            .then(res => {
+                if (res.data.status === 'success') {
+                    orders[index].status = res.data.order.status
+                    setOrders([...orders])
+                    snackbar({ type: res.data.status, message: res.data.message })
+                }
+                else {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                }
+            })
+            .catch(err => console.log(err))
+    }
+
     const renderItemHeader = (headerProps, info) => (
         <View {...headerProps}>
             <Text category='h6' style={{ fontWeight: 'bold' }}>
-                {info.item.seller.shopname}
+                {info.item.buyer.name}
             </Text>
         </View>
     );
 
-    const renderItemFooter = (footerProps, info) => (
-        info.item.status === 'Confirmed' ?
-            <Text {...footerProps} status='warning' category='h6'>
-                {info.item.status}
-            </Text>
-            :
-            info.item.status === 'Cancelled' ?
-                <Text {...footerProps} status='danger' category='h6'>
-                    {info.item.status}
-                </Text>
+    const renderItemFooter = (info) => (
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', padding: 10, paddingHorizontal: 25 }}>
+            {info.item.status === 'Confirmed' ?
+                <>
+                    <Button
+                        style={styles.cancelButton}
+                        appearance='outline' status='danger'
+                        onPress={() => updateOrderStatus('Cancelled', info.item._id, info.index)}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        style={styles.completeButton}
+                        status='success'
+                        onPress={() => updateOrderStatus('Delivered', info.item._id, info.index)}
+                    >
+                        Complete
+                    </Button>
+                </>
                 :
-                <Text {...footerProps} status='success' category='h6'>
-                    {info.item.status}
-                </Text>
+                info.item.status === 'Cancelled' ?
+                    <Text status='danger' category='h6' style={{ paddingVertical: 7.5 }}>
+                        {info.item.status}
+                    </Text>
+                    :
+                    <Text status='success' category='h6' style={{ paddingVertical: 7.5 }}>
+                        {info.item.status}
+                    </Text>
+            }
+        </View>
     );
 
     const renderItem = (info) => (
         <Card
             style={styles.item}
             // status='warning'
-            onPress={() => navigation.navigate('ORDER_DETAILS', { order: info.item })}
-            header={headerProps => renderItemHeader(headerProps, info)}
-            footer={footerprops => renderItemFooter(footerprops, info)}
-        >
-            <Text category='h6' style={styles.totalText}>₹ {info.item.total}</Text>
-            <Text style={styles.address}>Delivery by 22 May, 2021</Text>
-            <Text style={styles.address}>Flat no 102, Raj Residency O, Shardanagar, Near Anandnagar, Nanded</Text>
+            // header={headerProps => renderItemHeader(headerProps, info)}
+            footer={() => renderItemFooter(info)}>
+            <Text style={styles.address}>Deliver to, {info.item.buyer.name}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                <Text>Delivery date -  22 May, 2021</Text>
+                <Text category='p1' status='primary'>EDIT</Text>
+            </View>
+            <Text>Flat no 102, Raj Residency O, Shardanagar, Near Anandnagar, Nanded</Text>
         </Card>
     );
 
@@ -113,8 +145,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
     },
     item: {
-        // marginVertical: 4,
-        marginBottom: 10
+        marginBottom: 10,
     },
     totalText: {
         textAlign: 'right'
@@ -127,4 +158,12 @@ const styles = StyleSheet.create({
         marginVertical: 25,
         textAlign: 'center'
     },
+    cancelButton: {
+        width: "35%",
+        backgroundColor: '#fff',
+    },
+    completeButton: {
+        width: "35%",
+        marginLeft: 10
+    }
 });
