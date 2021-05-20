@@ -27,9 +27,21 @@ const OrderDetails = ({ navigation, route }) => {
                     <Card
                         style={styles.card}
                         header={headerProps =>
-                            <Text category='h5' {...headerProps}>
-                                Order Details
-                            </Text>
+                            <View {...headerProps}>
+                                <Text category='h5' >
+                                    Order Details
+                                </Text>
+                                <Text
+                                    style={{ marginTop: 5 }}
+                                    category='h6'
+                                    status={order.status === 'confirmed' ? 'primary'
+                                        :
+                                        order.status === 'cancelled' ? 'danger' : 'success'
+                                    }
+                                >
+                                    {order.status}
+                                </Text>
+                            </View>
                         }
                         footer={footerprops =>
                             <View {...footerprops}>
@@ -55,17 +67,17 @@ const OrderDetails = ({ navigation, route }) => {
                         style={styles.card}
                         header={headerProps =>
                             <Text category='h5' {...headerProps}>
-                                Shop Details
+                                Customer Details
                             </Text>
                         }
                     >
                         <View style={styles.sellerRow}>
-                            <Icon name='home-outline' style={styles.icon} fill='#000' />
-                            <Text category='h6'>{order.seller.shopname}</Text>
+                            <Icon name='person-outline' style={styles.icon} fill='#000' />
+                            <Text category='h6'>{order.buyer.name}</Text>
                         </View>
                         <View style={styles.sellerRow}>
-                            <Icon name='person-outline' style={styles.icon} fill='#000' />
-                            <Text category='h6'>{order.seller.name}</Text>
+                            <Icon name='home-outline' style={styles.icon} fill='#000' />
+                            <Text category='h6'>{order.buyer.address}Flat no 102, Raj Residency O, Shardanagar, Near Anandnagar, Nanded</Text>
                         </View>
                         <View style={styles.row}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -115,7 +127,8 @@ const styles = StyleSheet.create({
     sellerRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10
+        marginBottom: 10,
+        width: '75%'
     },
     row: {
         flexDirection: 'row',

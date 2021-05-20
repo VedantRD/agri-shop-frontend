@@ -27,8 +27,8 @@ const AddProduct = ({ navigation }) => {
     }
 
     const addNewProduct = () => {
-        console.log('quantity =', parseInt(quantity))
-        axios.post(`${url}/seller/addproduct`, { name, description, price, quantity, ownedBy: state._id })
+        console.log(category)
+        axios.post(`${url}/seller/addproduct`, { name, description, price, quantity, ownedBy: state._id, category })
             .then(res => {
                 if (res.data.status === 'success') {
                     snackbar({ type: res.data.status, message: res.data.message })

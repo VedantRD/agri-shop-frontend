@@ -1,10 +1,10 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import OrderDetails from '../../screens/buyer/orders/OrderDetails';
-import Orders from '../../screens/buyer/orders/Orders';
+import OrderDetails from '../../screens/seller/orders/OrderDetails';
+import Orders from '../../screens/seller/orders/Orders';
 const Stack = createStackNavigator();
 
-const BuyerOrderStack = () => {
+const SellerOrderStack = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="ORDERS" component={Orders} />
@@ -13,4 +13,4 @@ const BuyerOrderStack = () => {
     )
 }
 
-export default BuyerOrderStack
+export default SellerOrderStack

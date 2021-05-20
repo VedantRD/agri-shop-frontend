@@ -14,7 +14,7 @@ const EditProduct = ({ navigation, route }) => {
     const [description, setDescription] = useState(product.description)
     const categories = ['Organic', 'Non Organic'];
     const [selectedIndex, setSelectedIndex] = React.useState(null);
-    const [category, setCategory] = React.useState(null);
+    const [category, setCategory] = React.useState(product.category);
     const [price, setPrice] = useState(product.price.toString())
     const [quantity, setQuantity] = useState(product.quantity.toString())
 

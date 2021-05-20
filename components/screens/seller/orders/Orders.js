@@ -93,6 +93,7 @@ const Orders = ({ navigation }) => {
         <Card
             style={styles.item}
             // status='warning'
+            onPress={() => navigation.navigate('ORDER_DETAILS', { order: info.item })}
             // header={headerProps => renderItemHeader(headerProps, info)}
             footer={() => renderItemFooter(info)}>
             <Text style={styles.address}>Deliver to, {info.item.buyer.name}</Text>

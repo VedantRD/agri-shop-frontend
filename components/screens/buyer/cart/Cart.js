@@ -7,6 +7,7 @@ import url from '../../../url';
 import { UserContext } from '../../../theme/ApplyTheme';
 import MySpinner from '../../common/MySpinner';
 import snackbar from '../../common/Snackbar';
+import OrderModal from './OrderModal'
 
 const Cart = ({ navigation }) => {
 
@@ -14,6 +15,7 @@ const Cart = ({ navigation }) => {
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
     const { state } = useContext(UserContext)
+    const [visible, setVisible] = React.useState(false);
 
     const totalCost = () => {
         return items.reduce((acc, item) => item.product ? (acc + item.product.price * item.quantity) : 0, 0);
@@ -21,14 +23,12 @@ const Cart = ({ navigation }) => {
 
     const onItemRemove = (item, index) => {
         items.splice(index, 1);
-        // setItems([...items]);
         console.log(items.length)
         updateCart([...items])
     };
 
     const onItemChange = (item, index) => {
         items[index] = item;
-        // setItems([...items]);
         updateCart([...items])
     };
 
@@ -77,6 +77,7 @@ const Cart = ({ navigation }) => {
                 .catch(err => console.log(err))
             setLoading(false)
         }
+        setVisible(false)
     }
 
     // get user cart
@@ -109,6 +110,14 @@ const Cart = ({ navigation }) => {
                     <MySpinner />
                     :
                     <>
+                        <OrderModal
+                            visible={visible}
+                            setVisible={setVisible}
+                            order={{
+                                total: totalCost()
+                            }}
+                            placeOrder={placeOrder}
+                        />
                         {items.length == 0 ?
                             <Text
                                 category='h6'
@@ -131,7 +140,7 @@ const Cart = ({ navigation }) => {
                             <Button
                                 style={styles.checkoutButton}
                                 size='medium'
-                                onPress={placeOrder}
+                                onPress={() => setVisible(true)}
                             >
                                 ORDER
                             </Button>

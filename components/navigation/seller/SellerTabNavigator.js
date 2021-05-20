@@ -7,7 +7,7 @@ const { Navigator, Screen } = createBottomTabNavigator();
 import { PersonIcon, BreifcaseIcon, HomeIcon, PlusOutlineIcon } from '../../screens/common/Icons'
 import AddProduct from '../../screens/seller/products/AddProduct';
 import SellerHomeStack from './SellerHomeStack';
-import Orders from '../../screens/seller/orders/Orders';
+import SellerOrderStack from './SellerOrderStack';
 
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
@@ -36,7 +36,7 @@ const SellerTabNavigator = () => (
   <Navigator tabBar={props => <BottomTabBar {...props} />} tabBarOptions={{ keyboardHidesTabBar: true }}>
     <Screen name='Seller_Home' component={SellerHomeStack} />
     <Screen name='Add_Product' component={AddProduct} />
-    <Screen name='Seller_Orders' component={Orders} />
+    <Screen name='Seller_Orders' component={SellerOrderStack} />
     <Screen name='Seller_Profile' component={Profile} />
   </Navigator>
 );
