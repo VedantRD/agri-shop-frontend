@@ -12,9 +12,12 @@ const AddProduct = ({ navigation }) => {
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const categories = ['Organic', 'Non Organic'];
+    const categories = ['Fruit', 'Vegetable', 'Dairy'];
+    const units = ['gram', 'kg', 'litre', 'piece']
     const [selectedIndex, setSelectedIndex] = React.useState(null);
     const [category, setCategory] = React.useState(null);
+    const [unit, setUnit] = React.useState(null);
+    const [selectedUnitIndex, setSelectedUnitIndex] = React.useState(null);
     const [price, setPrice] = useState('')
     const [quantity, setQuantity] = useState('')
     const { state } = useContext(UserContext)
@@ -26,9 +29,14 @@ const AddProduct = ({ navigation }) => {
         setCategory(categories[index.row])
     }
 
+    const selectUnit = (index) => {
+        setSelectedUnitIndex(index)
+        setUnit(units[index.row])
+    }
+
     const addNewProduct = () => {
         console.log(category)
-        axios.post(`${url}/seller/addproduct`, { name, description, price, quantity, ownedBy: state._id, category })
+        axios.post(`${url}/seller/addproduct`, { name, description, price, quantity, ownedBy: state._id, category, unit })
             .then(res => {
                 if (res.data.status === 'success') {
                     snackbar({ type: res.data.status, message: res.data.message })
@@ -43,7 +51,7 @@ const AddProduct = ({ navigation }) => {
 
     return (
         <>
-            <Header title='Add Product' />
+            <Header title='Add Product Details' />
             <Layout level='4' style={styles.container}>
                 <ScrollView style={{ padding: 15 }}>
                     <KeyboardAvoidingView>
@@ -72,9 +80,31 @@ const AddProduct = ({ navigation }) => {
                             value={category}
                             style={styles.input}
                         >
-                            <SelectItem title='Organic' />
-                            <SelectItem title='Non Organic' />
+                            {categories.map((item, i) =>
+                                <SelectItem title={item} key={i} />
+                            )}
                         </Select>
+                        <Text style={styles.label}>Quantity</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Input
+                                placeholder='Quantity'
+                                size='large'
+                                value={quantity}
+                                onChangeText={nextValue => setQuantity(nextValue)}
+                                style={[styles.input, { width: '65%' }]}
+                            />
+                            <Select
+                                size='large'
+                                selectedIndex={selectedUnitIndex}
+                                onSelect={index => selectUnit(index)}
+                                value={unit}
+                                style={[styles.input, { width: '35%' }]}
+                            >
+                                {units.map((item, i) =>
+                                    <SelectItem title={item} key={i} />
+                                )}
+                            </Select>
+                        </View>
                         <Text style={styles.label}>Price</Text>
                         <Input
                             placeholder='Price'
@@ -83,14 +113,7 @@ const AddProduct = ({ navigation }) => {
                             onChangeText={nextValue => setPrice(nextValue)}
                             style={styles.input}
                         />
-                        <Text style={styles.label}>Quantity</Text>
-                        <Input
-                            placeholder='Quantity'
-                            size='large'
-                            value={quantity}
-                            onChangeText={nextValue => setQuantity(nextValue)}
-                            style={styles.input}
-                        />
+
                     </KeyboardAvoidingView>
                 </ScrollView>
                 <View style={{ paddingHorizontal: 15, paddingVertical: 15 }}>

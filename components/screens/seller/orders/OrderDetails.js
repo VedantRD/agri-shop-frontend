@@ -3,10 +3,6 @@ import { StyleSheet, View, ScrollView, Linking, TouchableOpacity } from 'react-n
 import { Layout, Text, Divider, Card, Icon, Button } from '@ui-kitten/components'
 import Header from '../../common/Header'
 
-const data = new Array(8).fill({
-    title: 'Item',
-});
-
 const OrderDetails = ({ navigation, route }) => {
 
     const { order } = route.params
@@ -77,7 +73,7 @@ const OrderDetails = ({ navigation, route }) => {
                         </View>
                         <View style={styles.sellerRow}>
                             <Icon name='home-outline' style={styles.icon} fill='#000' />
-                            <Text category='h6'>{order.buyer.address}Flat no 102, Raj Residency O, Shardanagar, Near Anandnagar, Nanded</Text>
+                            <Text category='h6'>{order.buyer.address}</Text>
                         </View>
                         <View style={styles.row}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>

@@ -51,7 +51,7 @@ export const CartItem = (props) => {
                             {product.product.name}
                         </Text>
                         <Text category='s1'>
-                            ₹ {product.product.price}
+                            ₹ {product.product.price} / {product.product.unit}
                         </Text>
                         <View style={styles.amountContainer}>
                             <Button
@@ -63,7 +63,7 @@ export const CartItem = (props) => {
                             />
                             <Text
                                 style={styles.amount}
-                                category='s2'>
+                                category='s1'>
                                 {`${product.quantity}`}
                             </Text>
                             <Button
@@ -72,6 +72,11 @@ export const CartItem = (props) => {
                                 accessoryLeft={PlusIcon}
                                 onPress={onPlusButtonPress}
                             />
+                            <Text
+                                style={[styles.amount]}
+                                category='s1'>
+                                {`${product.product.unit}`}
+                            </Text>
                         </View>
                     </>
                     :
@@ -115,7 +120,7 @@ const styles = StyleSheet.create({
     },
     amount: {
         textAlign: 'center',
-        width: 40,
+        width: 40
     },
     removeButton: {
         position: 'absolute',

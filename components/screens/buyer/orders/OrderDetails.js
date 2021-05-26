@@ -91,7 +91,7 @@ const OrderDetails = ({ navigation, route }) => {
                             return (
                                 <View key={i}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                        <Text>{item.quantity} x {item.product.name}</Text>
+                                        <Text>{item.quantity} {item.product.unit} {item.product.name}</Text>
                                         <Text style={{ textAlign: 'right' }}>₹ {item.quantity * item.product.price}</Text>
                                     </View>
                                     <Divider style={{ marginVertical: 10, backgroundColor: '#ccc' }} />

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Dimensions, ImageBackground, View } from 'react-native';
 import { Button, Card, Layout, List, Spinner, StyleService, Text, useStyleSheet, useTheme } from '@ui-kitten/components';
-import { EditIcon, DeleteIcon } from '../../common/Icons';
+import { EditIcon, DeleteIcon, PlusIcon } from '../../common/Icons';
 import Header from '../../common/Header'
 import { UserContext } from '../../../theme/ApplyTheme'
 import axios from 'axios';
@@ -58,7 +58,8 @@ const Home = ({ navigation }) => {
     const renderItemHeader = () => (
         <ImageBackground
             style={styles.itemHeader}
-            source={{ uri: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80' }}
+            // resizeMode='center'
+            source={{ uri: 'https://cdn.theatlantic.com/thumbor/TxEw_yjPER1uluJjP8qc0nNRHpw=/0x72:1000x635/720x405/media/img/mt/2015/05/shutterstock_247399801/original.jpg' }}
         />
     );
 
@@ -75,11 +76,11 @@ const Home = ({ navigation }) => {
                 category='s1'
                 status={info.item.quantity <= 20 && 'danger'}
             >
-                {info.item.quantity <= 20 ? 'Only ' : null}{info.item.quantity} Remaining
+                {info.item.quantity <= 20 ? 'Only ' : null}{info.item.quantity} {info.item.unit} Remaining
             </Text>
             <View style={styles.itemFooter}>
                 <Text category='h6'>
-                    ₹ {info.item.price}
+                    ₹ {info.item.price} / {info.item.unit}
                 </Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
                     <Button
@@ -107,12 +108,33 @@ const Home = ({ navigation }) => {
                 <MySpinner />
                 :
                 <Layout level='4' style={styles.container}>
-                    <List
-                        contentContainerStyle={styles.productList}
-                        data={products}
-                        numColumns={1}
-                        renderItem={renderProductItem}
-                    />
+                    {products.length == 0 ?
+                        <>
+                            <Layout level='4' style={{ flex: 1, justifyContent: 'center' }}>
+                                <Text
+                                    category='h6'
+                                    appearance='hint'
+                                    style={styles.emptyListText}
+                                >
+                                    You have no products in market
+                                </Text>
+                                <Button
+                                    accessoryLeft={PlusIcon}
+                                    style={{ width: '50%', alignSelf: 'center' }}
+                                    onPress={() => navigation.navigate('Add_Product')}
+                                >
+                                    Add Product
+                                </Button>
+                            </Layout>
+                        </>
+                        :
+                        <List
+                            contentContainerStyle={styles.productList}
+                            data={products}
+                            numColumns={1}
+                            renderItem={renderProductItem}
+                        />
+                    }
                 </Layout>
             }
         </>
@@ -126,15 +148,20 @@ const themedStyles = StyleService.create({
         flex: 1,
         backgroundColor: 'background-basic-color-2',
     },
+    emptyListText: {
+        // flex: 1,
+        marginVertical: 25,
+        textAlign: 'center'
+    },
     productList: {
         // paddingHorizontal: 4,
         // paddingVertical: 8,
+        backgroundColor: 'background-basic-color-4',
     },
     productItem: {
         flex: 1,
         margin: 8,
-        maxWidth: Dimensions.get('window').width - 16,
-        backgroundColor: 'background-basic-color-1',
+        // maxWidth: Dimensions.get('window').width - 16,
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -142,7 +169,6 @@ const themedStyles = StyleService.create({
         },
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
-
         elevation: 4,
     },
     itemHeader: {

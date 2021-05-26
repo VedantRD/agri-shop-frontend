@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { ImageBackground, View } from 'react-native';
+import { ImageBackground, View, ScrollView } from 'react-native';
 import { Button, Layout, StyleService, Text, useStyleSheet, } from '@ui-kitten/components';
 import Header from '../../common/Header';
 import axios from 'axios';
@@ -7,11 +7,13 @@ import url from '../../../url';
 import { UserContext } from '../../../theme/ApplyTheme';
 import snackbar from '../../common/Snackbar';
 import MySpinner from '../../common/MySpinner';
+import { InfoIcon } from '../../common/Icons';
 
 const ProductDetails = ({ navigation, route }) => {
 
     const styles = useStyleSheet(themedStyles);
     const { product } = route.params
+    console.log('product = ', product)
     const { state } = useContext(UserContext)
     const [loading, setLoading] = useState(false)
 
@@ -45,37 +47,59 @@ const ProductDetails = ({ navigation, route }) => {
                 :
                 <>
                     <Layout style={styles.header}>
-                        <ImageBackground
-                            style={styles.image}
-                            source={{ uri: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80' }}
-                        />
-                        <Layout
-                            style={styles.detailsContainer}
-                            level='1'>
-                            <View style={styles.row}>
+                        <ScrollView>
+                            <ImageBackground
+                                style={styles.image}
+                                source={{ uri: 'https://st3.depositphotos.com/1041725/31792/v/450/depositphotos_317926002-stock-illustration-basket-with-fruits-illustration-vector.jpg' }}
+                            />
+                            <Layout
+                                style={styles.detailsContainer}
+                                level='1'>
+                                <View style={styles.row}>
+                                    <Text
+                                        style={styles.name}
+                                        category='h5'>
+                                        {product.name}
+                                    </Text>
+                                    <Text
+                                        style={styles.price}
+                                        category='h5'>
+                                        ₹ {product.price}/{product.unit}
+                                    </Text>
+                                </View>
                                 <Text
-                                    style={styles.name}
-                                    category='h5'>
-                                    {product.name}
+                                    style={styles.subtitle}
+                                    appearance='hint'
+                                    category='s1'>
+                                    {product.category}
                                 </Text>
                                 <Text
-                                    style={styles.price}
-                                    category='h4'>
-                                    ₹ {product.price}
+                                    style={styles.description}
+                                    appearance='hint'>
+                                    {product.description}
                                 </Text>
-                            </View>
-                            <Text
-                                style={styles.subtitle}
-                                appearance='hint'
-                                category='s1'>
-                                Electronics
-                            </Text>
-                            <Text
-                                style={styles.description}
-                                appearance='hint'>
-                                {product.description}
-                            </Text>
-                        </Layout>
+                                <Text
+                                    style={{ textAlign: 'center', marginVertical: 16 }}
+                                >
+                                    Shop Details
+                                </Text>
+                                <Text
+                                    style={{ marginBottom: 8 }}
+                                >
+                                    {product.ownedBy.name}
+                                </Text>
+                                <Text
+                                    style={{ marginBottom: 8 }}
+                                >
+                                    {product.ownedBy.shopname}
+                                </Text>
+                                <Text
+                                    style={{ marginBottom: 8 }}
+                                >
+                                    {product.ownedBy.address}
+                                </Text>
+                            </Layout>
+                        </ScrollView>
                     </Layout>
                     <View style={styles.actionContainer}>
                         <Button

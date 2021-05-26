@@ -72,3 +72,7 @@ export const ChevronRightIcon = (props) => (
 export const ChevronLeftIcon = (props) => (
     <Icon {...props} name='chevron-left-outline' />
 );
+
+export const SearchIcon = (props) => (
+    <Icon {...props} name='search-outline' />
+);

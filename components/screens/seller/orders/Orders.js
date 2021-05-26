@@ -101,7 +101,7 @@ const Orders = ({ navigation }) => {
                 <Text>Delivery date -  22 May, 2021</Text>
                 <Text category='p1' status='primary'>EDIT</Text>
             </View>
-            <Text>Flat no 102, Raj Residency O, Shardanagar, Near Anandnagar, Nanded</Text>
+            <Text>{info.item.buyer.address}</Text>
         </Card>
     );
 
@@ -114,13 +114,15 @@ const Orders = ({ navigation }) => {
                     :
                     <>
                         {orders.length == 0 ?
-                            <Text
-                                category='h6'
-                                appearance='hint'
-                                style={styles.emptyListText}
-                            >
-                                You have no orders
-                            </Text>
+                            <Layout level='4' style={{ flex: 1, justifyContent: 'center' }}>
+                                <Text
+                                    category='h6'
+                                    appearance='hint'
+                                    style={styles.emptyListText}
+                                >
+                                    You have no orders
+                                </Text>
+                            </Layout>
                             :
                             <List
                                 style={styles.container}
@@ -155,7 +157,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     emptyListText: {
-        flex: 1,
+        // flex: 1,
         marginVertical: 25,
         textAlign: 'center'
     },

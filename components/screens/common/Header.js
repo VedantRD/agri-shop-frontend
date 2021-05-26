@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
-import { LogoutIcon, InfoIcon, ChevronLeftIcon, MenuIcon } from './Icons'
+import { LogoutIcon, InfoIcon, BackIcon, MenuIcon } from './Icons'
 
 const Header = ({ title, goback, navigation, menu, titleAlignLeft }) => {
 
@@ -29,7 +29,7 @@ const Header = ({ title, goback, navigation, menu, titleAlignLeft }) => {
     );
 
     const renderBackAction = () => (
-        <TopNavigationAction icon={ChevronLeftIcon} onPress={navigation.goBack} />
+        <TopNavigationAction icon={BackIcon} onPress={navigation.goBack} />
     );
 
     return (

@@ -50,7 +50,11 @@ const OrderModal = ({ visible, setVisible, order, placeOrder }) => {
                         </View>
                         <View style={styles.row}>
                             <Text category='h6'>Delivery Charges</Text>
-                            <Text category='h6'>₹ 30</Text>
+                            {order.deliveryCost == 0 ?
+                                <Text category='h6' status='success' style={{ fontWeight: 'bold' }}>FREE</Text>
+                                :
+                                <Text category='h6'>₹ {order.deliveryCost}</Text>
+                            }
                         </View>
                         <View style={styles.row}>
                             <Text category='h6'>Payment Type</Text>
@@ -59,7 +63,7 @@ const OrderModal = ({ visible, setVisible, order, placeOrder }) => {
                         <Divider style={{ marginVertical: 10, backgroundColor: '#eee', marginHorizontal: -5 }} />
                         <View style={styles.row}>
                             <Text category='h6' style={{ fontWeight: 'bold' }}>Final Amount</Text>
-                            <Text category='h6' style={{ fontWeight: 'bold' }}>₹ {order.total}</Text>
+                            <Text category='h6' style={{ fontWeight: 'bold' }}>₹ {order.total + order.deliveryCost}</Text>
                         </View>
                     </View>
                 </Card>
