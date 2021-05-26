@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { ImageBackground, View, ScrollView } from 'react-native';
-import { Button, Layout, StyleService, Text, useStyleSheet, } from '@ui-kitten/components';
+import { Avatar, Button, Layout, StyleService, Text, useStyleSheet, } from '@ui-kitten/components';
 import Header from '../../common/Header';
 import axios from 'axios';
 import url from '../../../url';
@@ -79,25 +79,47 @@ const ProductDetails = ({ navigation, route }) => {
                                     {product.description}
                                 </Text>
                                 <Text
-                                    style={{ textAlign: 'center', marginVertical: 16 }}
+                                    style={{ textAlign: 'left', marginVertical: 16 }}
+                                    category='h6'
                                 >
                                     Shop Details
                                 </Text>
-                                <Text
-                                    style={{ marginBottom: 8 }}
-                                >
-                                    {product.ownedBy.name}
-                                </Text>
-                                <Text
-                                    style={{ marginBottom: 8 }}
-                                >
-                                    {product.ownedBy.shopname}
-                                </Text>
-                                <Text
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Avatar
+                                        shape='rounded'
+                                        size='giant'
+                                        source={require('../../../assets/shop-1.jpg')}
+                                        style={{ width: '17%' }}
+                                    />
+                                    <View style={{ width: '83%', paddingLeft: 16 }}>
+                                        <Text
+                                            // style={{ marginLeft: 16 }}
+                                            category='h6'
+                                        >
+                                            {product.ownedBy.shopname}
+                                        </Text>
+                                        <Text
+                                            // style={{ marginBottom: 8 }}
+                                            category='s1'
+                                            appearance='hint'
+                                        >
+                                            {product.ownedBy.name}
+                                        </Text>
+                                        {/* <View style={{ maxWidth: '97%' }}> */}
+                                        <Text
+                                            category='s1'
+                                            appearance='hint'
+                                        >
+                                            {product.ownedBy.address}
+                                        </Text>
+                                        {/* </View> */}
+                                    </View>
+                                </View>
+                                {/* <Text
                                     style={{ marginBottom: 8 }}
                                 >
                                     {product.ownedBy.address}
-                                </Text>
+                                </Text> */}
                             </Layout>
                         </ScrollView>
                     </Layout>
