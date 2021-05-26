@@ -12,8 +12,11 @@ const EditProduct = ({ navigation, route }) => {
     const { product } = route.params
     const [name, setName] = useState(product.name)
     const [description, setDescription] = useState(product.description)
-    const categories = ['Organic', 'Non Organic'];
+    const categories = ['Fruit', 'Vegetable', 'Dairy'];
+    const units = ['gram', 'kg', 'litre', 'piece']
     const [selectedIndex, setSelectedIndex] = React.useState(null);
+    const [unit, setUnit] = React.useState(product.unit);
+    const [selectedUnitIndex, setSelectedUnitIndex] = React.useState(null);
     const [category, setCategory] = React.useState(product.category);
     const [price, setPrice] = useState(product.price.toString())
     const [quantity, setQuantity] = useState(product.quantity.toString())
@@ -25,9 +28,14 @@ const EditProduct = ({ navigation, route }) => {
         setCategory(categories[index.row])
     }
 
+    const selectUnit = (index) => {
+        setSelectedUnitIndex(index)
+        setUnit(units[index.row])
+    }
+
     const updateProduct = () => {
         axios
-            .post(`${url}/seller/updateproduct`, { name, description, price, quantity, productId: product._id })
+            .post(`${url}/seller/updateproduct`, { name, description, price, quantity, productId: product._id, category, unit })
             .then(res => {
                 if (res.data.status === 'success') {
                     snackbar({ type: res.data.status, message: res.data.message })
@@ -72,23 +80,37 @@ const EditProduct = ({ navigation, route }) => {
                                 value={category}
                                 style={styles.input}
                             >
-                                <SelectItem title='Organic' />
-                                <SelectItem title='Non Organic' />
+                                {categories.map((item, i) =>
+                                    <SelectItem title={item} key={i} />
+                                )}
                             </Select>
+                            <Text style={styles.label}>Quantity</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <Input
+                                    placeholder='Quantity'
+                                    size='large'
+                                    value={quantity}
+                                    onChangeText={nextValue => setQuantity(nextValue)}
+                                    style={styles.input}
+                                />
+                                <Select
+                                    size='large'
+                                    selectedIndex={selectedUnitIndex}
+                                    onSelect={index => selectUnit(index)}
+                                    value={unit}
+                                    style={[styles.input, { width: '35%' }]}
+                                >
+                                    {units.map((item, i) =>
+                                        <SelectItem title={item} key={i} />
+                                    )}
+                                </Select>
+                            </View>
                             <Text style={styles.label}>Price</Text>
                             <Input
                                 placeholder='Price'
                                 size='large'
                                 value={price}
                                 onChangeText={nextValue => setPrice(nextValue)}
-                                style={styles.input}
-                            />
-                            <Text style={styles.label}>Quantity</Text>
-                            <Input
-                                placeholder='Quantity'
-                                size='large'
-                                value={quantity}
-                                onChangeText={nextValue => setQuantity(nextValue)}
                                 style={styles.input}
                             />
                         </KeyboardAvoidingView>
