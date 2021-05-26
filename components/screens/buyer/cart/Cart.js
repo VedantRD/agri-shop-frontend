@@ -64,7 +64,7 @@ const Cart = ({ navigation }) => {
             snackbar({ type: 'failed', message: 'Your cart is empty' })
         } else {
             setLoading(true)
-            axios.post(`${url}/buyer/order/create`, { buyerId: state._id, items, buyerAddress: state.address, sellerId: items[0].product.ownedBy, total: totalCost() + (totalCost() <= 500 ? 30 : 0) })
+            axios.post(`${url}/buyer/order/create`, { buyerId: state._id, items, buyerAddress: state.address, sellerId: items[0].product.ownedBy, total: totalCost(), deliveryCharges: totalCost() <= 500 ? 30 : 0 })
                 .then(res => {
                     if (res.data.status === 'success') {
                         snackbar({ type: res.data.status, message: res.data.message })

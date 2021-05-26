@@ -66,9 +66,9 @@ const Orders = ({ navigation }) => {
             header={headerProps => renderItemHeader(headerProps, info)}
             footer={footerprops => renderItemFooter(footerprops, info)}
         >
-            <Text category='h6' style={styles.totalText}>₹ {info.item.total}</Text>
+            <Text category='h6' style={styles.totalText}>₹ {info.item.total + info.item.deliveryCharges}</Text>
             <Text style={styles.address}>Delivery by 22 May, 2021</Text>
-            <Text style={styles.address}>Flat no 102, Raj Residency O, Shardanagar, Near Anandnagar, Nanded</Text>
+            <Text style={styles.address}>{info.item.buyer.address}</Text>
         </Card>
     );
 

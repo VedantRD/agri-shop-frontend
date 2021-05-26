@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     completeButton: {
-        width: "35%",
+        width: "38%",
         marginLeft: 10
     }
 });

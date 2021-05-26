@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View, ScrollView, Linking, TouchableOpacity } from 'react-native'
 import { Layout, Text, Divider, Card, Icon, Button } from '@ui-kitten/components'
 import Header from '../../common/Header'
+import { InfoIcon } from '../../common/Icons'
 
 const OrderDetails = ({ navigation, route }) => {
 
@@ -30,9 +31,10 @@ const OrderDetails = ({ navigation, route }) => {
                                 <Text
                                     style={{ marginTop: 5 }}
                                     category='h6'
-                                    status={order.status === 'confirmed' ? 'primary'
-                                        :
-                                        order.status === 'cancelled' ? 'danger' : 'success'
+                                    status={
+                                        order.status === 'confirmed' ? 'primary'
+                                            :
+                                            order.status === 'Cancelled' ? 'danger' : 'success'
                                     }
                                 >
                                     {order.status}
@@ -43,7 +45,7 @@ const OrderDetails = ({ navigation, route }) => {
                             <View {...footerprops}>
                                 <View style={styles.row}>
                                     <Text category='h6' style={{ fontWeight: 'bold' }}>Total Cost</Text>
-                                    <Text category='h6' style={{ fontWeight: 'bold' }}>₹ {order.total}</Text>
+                                    <Text category='h6' style={{ fontWeight: 'bold' }}>₹ {order.total + order.deliveryCharges}</Text>
                                 </View>
                             </View>
                         }
@@ -54,7 +56,11 @@ const OrderDetails = ({ navigation, route }) => {
                         </View>
                         <View style={styles.row}>
                             <Text category='h6'>Delivery Charges</Text>
-                            <Text category='h6'>₹ 30</Text>
+                            {order.deliveryCharges === 0 ?
+                                <Text category='h6' status='success' style={{ fontWeight: 'bold' }}>FREE</Text>
+                                :
+                                <Text category='h6'>₹ {order.deliveryCharges}</Text>
+                            }
                         </View>
                     </Card>
 
@@ -99,7 +105,7 @@ const OrderDetails = ({ navigation, route }) => {
                             return (
                                 <View key={i}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                        <Text>{item.quantity} x {item.product.name}</Text>
+                                        <Text>{item.quantity} {item.product.unit} {item.product.name}</Text>
                                         <Text style={{ textAlign: 'right' }}>₹ {item.quantity * item.product.price}</Text>
                                     </View>
                                     <Divider style={{ marginVertical: 10, backgroundColor: '#ccc' }} />

@@ -43,7 +43,7 @@ const OrderModal = ({ visible, setVisible, order, placeOrder }) => {
                         </View>
                     }
                 >
-                    <View style={{ paddingVertical: 10 }}>
+                    <View style={{ paddingVertical: 0 }}>
                         <View style={styles.row}>
                             <Text category='h6'>Total Amount</Text>
                             <Text category='h6'>₹ {order.total}</Text>
@@ -61,7 +61,7 @@ const OrderModal = ({ visible, setVisible, order, placeOrder }) => {
                             <Text category='h6'>Cash on delivery</Text>
                         </View>
                         <Divider style={{ marginVertical: 10, backgroundColor: '#eee', marginHorizontal: -5 }} />
-                        <View style={styles.row}>
+                        <View style={[styles.row, { marginBottom: 0 }]}>
                             <Text category='h6' style={{ fontWeight: 'bold' }}>Final Amount</Text>
                             <Text category='h6' style={{ fontWeight: 'bold' }}>₹ {order.total + order.deliveryCost}</Text>
                         </View>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     completeButton: {
-        width: "40%",
+        width: "41%",
         marginLeft: 10
     }
 });

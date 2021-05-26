@@ -35,7 +35,7 @@ const OrderDetails = ({ navigation, route }) => {
                             <View {...footerprops}>
                                 <View style={styles.row}>
                                     <Text category='h6' style={{ fontWeight: 'bold' }}>Total Cost</Text>
-                                    <Text category='h6' style={{ fontWeight: 'bold' }}>₹ {order.total}</Text>
+                                    <Text category='h6' style={{ fontWeight: 'bold' }}>₹ {order.total + order.deliveryCharges}</Text>
                                 </View>
                             </View>
                         }
@@ -46,7 +46,11 @@ const OrderDetails = ({ navigation, route }) => {
                         </View>
                         <View style={styles.row}>
                             <Text category='h6'>Delivery Charges</Text>
-                            <Text category='h6'>₹ 30</Text>
+                            {order.deliveryCharges === 0 ?
+                                <Text category='h6' status='success' style={{ fontWeight: 'bold' }}>FREE</Text>
+                                :
+                                <Text category='h6'>₹ {order.deliveryCharges}</Text>
+                            }
                         </View>
                     </Card>
 
