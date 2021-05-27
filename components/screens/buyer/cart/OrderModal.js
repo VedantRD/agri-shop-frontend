@@ -10,7 +10,7 @@ const OrderModal = ({ visible, setVisible, order, placeOrder }) => {
                 visible={visible}
                 backdropStyle={styles.backdrop}
                 onBackdropPress={() => setVisible(false)}
-                style={{ width: '85%', paddingBottom: 20 }}
+                style={{ width: '95%', paddingBottom: 20 }}
             >
                 <Card
                     disabled={true}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     completeButton: {
-        width: "41%",
+        width: "40%",
         marginLeft: 10
     }
 });

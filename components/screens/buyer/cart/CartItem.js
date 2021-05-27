@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     },
     amount: {
         textAlign: 'center',
-        width: 40
+        width: 50
     },
     removeButton: {
         position: 'absolute',

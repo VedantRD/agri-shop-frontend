@@ -101,6 +101,10 @@ const Orders = ({ navigation }) => {
                 <Text>Delivery date -  22 May, 2021</Text>
                 <Text category='p1' status='primary'>EDIT</Text>
             </View>
+            <Text style={styles.address}>
+                {info.item.items.map((item, i) => { return item.product.name }
+                ).join(', ').slice(0, 50)}
+            </Text>
             <Text>{info.item.buyer.address}</Text>
         </Card>
     );

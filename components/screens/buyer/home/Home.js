@@ -18,9 +18,9 @@ const Home = ({ navigation }) => {
 
     const categories = [
         // { title: 'All', image: 'https://image.freepik.com/free-vector/people-buying-fresh-fruit-vegetables-outdoor-farm-market-isometric-composition_1284-56875.jpg' },
-        { title: 'Vegetables', image: 'https://image.freepik.com/free-vector/fruit-salad-bowls-concept_23-2148493375.jpg' },
+        { title: 'Vegetable', image: 'https://image.freepik.com/free-vector/fruit-salad-bowls-concept_23-2148493375.jpg' },
         { title: 'Dairy', image: 'https://image.freepik.com/free-vector/dairy-products-vector-flat-cartoon-illustration_86689-41.jpg' },
-        { title: 'Fruits', image: 'https://st3.depositphotos.com/1041725/31792/v/450/depositphotos_317926002-stock-illustration-basket-with-fruits-illustration-vector.jpg' },
+        { title: 'Fruit', image: 'https://st3.depositphotos.com/1041725/31792/v/450/depositphotos_317926002-stock-illustration-basket-with-fruits-illustration-vector.jpg' },
     ]
 
     const styles = useStyleSheet(themedStyles);
@@ -54,7 +54,7 @@ const Home = ({ navigation }) => {
 
                 <Text style={styles.emptyListText} appearance='hint' category='h6'>OR</Text>
 
-                <Button status='basic' size='large' style={{ marginVertical: 15 }} onPress={() => navigation.navigate('PRODUCTS', { category: 'all' })}>See All Products</Button>
+                <Button status='basic' size='large' style={{ marginVertical: 15 }} onPress={() => navigation.navigate('PRODUCTS', { category: 'All' })}>See All Products</Button>
 
             </Layout>
         </>
