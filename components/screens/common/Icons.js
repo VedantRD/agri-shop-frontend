@@ -76,3 +76,7 @@ export const ChevronLeftIcon = (props) => (
 export const SearchIcon = (props) => (
     <Icon {...props} name='search-outline' />
 );
+
+export const CameraIcon = (props) => (
+    <Icon {...props} name='camera-outline' />
+);
