@@ -64,7 +64,7 @@ const Profile = ({ navigation }) => {
             </View>
 
             {/* Address section */}
-            <View style={styles.descriptionContainer}>
+            <View style={[styles.descriptionContainer, { paddingBottom: 20 }]}>
                 <Text style={styles.description} category='p1' appearance='hint'>
                     Address
                 </Text>
@@ -79,10 +79,11 @@ const Profile = ({ navigation }) => {
                     <TouchableOpacity
                         activeOpacity={1.0}
                         style={styles.options}>
+                        <Icon name='edit-outline' fill="#000" style={{ width: 25, height: 25 }} />
                         <Text
-                            category='h6'>
+                            category='h6' style={{ marginLeft: 10 }}>
                             Edit Profile
-                    </Text>
+                        </Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ backgroundColor: '#fff', marginVertical: 2 }}>
@@ -90,10 +91,11 @@ const Profile = ({ navigation }) => {
                         activeOpacity={1.0}
                         style={styles.options}
                     >
+                        <Icon name='file-outline' fill="#000" style={{ width: 25, height: 25 }} />
                         <Text
-                            category='h6'>
+                            category='h6' style={{ marginLeft: 10 }}>
                             About us
-                    </Text>
+                        </Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ backgroundColor: '#fff', marginVertical: 2 }}>
@@ -105,7 +107,7 @@ const Profile = ({ navigation }) => {
                         <Icon name='log-out-outline' fill="#000" style={{ width: 25, height: 25 }} />
                         <Text
                             category='h6'
-                            style={{ marginLeft: 8 }}>
+                            style={{ marginLeft: 10 }}>
                             Logout
                         </Text>
                     </TouchableOpacity>

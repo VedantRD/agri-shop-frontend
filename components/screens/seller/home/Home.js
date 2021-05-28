@@ -55,18 +55,17 @@ const Home = ({ navigation }) => {
         return unsubscribe;
     }, [navigation])
 
-    const renderItemHeader = () => (
+    const renderItemHeader = (info) => (
         <ImageBackground
             style={styles.itemHeader}
-            // resizeMode='center'
-            source={{ uri: 'https://cdn.theatlantic.com/thumbor/TxEw_yjPER1uluJjP8qc0nNRHpw=/0x72:1000x635/720x405/media/img/mt/2015/05/shutterstock_247399801/original.jpg' }}
+            source={{ uri: info.item.image }}
         />
     );
 
     const renderProductItem = (info) => (
         <Card
             style={styles.productItem}
-            header={() => renderItemHeader()}
+            header={() => renderItemHeader(info)}
         >
             <Text category='h6' style={{ marginBottom: 5 }}>
                 {info.item.name}

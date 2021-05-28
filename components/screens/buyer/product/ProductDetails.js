@@ -8,24 +8,39 @@ import { UserContext } from '../../../theme/ApplyTheme';
 import snackbar from '../../common/Snackbar';
 import MySpinner from '../../common/MySpinner';
 import { InfoIcon } from '../../common/Icons';
+import CannotAddModal from './CannotAddModal'
 
 const ProductDetails = ({ navigation, route }) => {
 
     const styles = useStyleSheet(themedStyles);
     const { product } = route.params
-    console.log('product = ', product)
-    const { state } = useContext(UserContext)
+    const { state, dispatch } = useContext(UserContext)
     const [loading, setLoading] = useState(false)
+    const [visible, setVisible] = useState(false)
 
     // add product to cart
-    const addToCart = () => {
+    const checkCart = () => {
         setLoading(true)
+
+        if (state.cartItems.length && product.ownedBy._id !== state.cartItems[0].product.ownedBy) {
+            setLoading(false)
+            // return snackbar({ type: 'failed', message: 'you cant add this item' })
+            return setVisible(true)
+        }
+        else {
+            addToCart()
+        }
+    }
+
+    const addToCart = () => {
         let item = { product, quantity: 1 }
+
         axios.post(`${url}/buyer/cart/add`, { item, cartId: state.cartId })
             .then(res => {
                 if (res.data.status === 'success') {
                     snackbar({ type: res.data.status, message: res.data.message })
-                    console.log(res.data)
+                    dispatch({ type: 'UPDATE_CART', payload: res.data.cart.items })
+                    setVisible(false)
                 }
                 else {
                     snackbar({ type: res.data.status, message: res.data.message })
@@ -42,6 +57,10 @@ const ProductDetails = ({ navigation, route }) => {
                 goback={true}
                 navigation={navigation}
             />
+
+            {/* modal */}
+            <CannotAddModal visible={visible} setVisible={setVisible} addToCart={addToCart} />
+
             {loading ?
                 <MySpinner />
                 :
@@ -127,7 +146,7 @@ const ProductDetails = ({ navigation, route }) => {
                         <Button
                             style={styles.actionButton}
                             size='large'
-                            onPress={addToCart}
+                            onPress={checkCart}
                         >
                             ADD TO CART
                         </Button>

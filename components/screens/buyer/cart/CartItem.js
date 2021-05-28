@@ -39,7 +39,7 @@ export const CartItem = (props) => {
             style={[styles.container, style]}>
             <Image
                 style={styles.image}
-                source={{ uri: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZHVjdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80' }}
+                source={{ uri: product.product.image }}
             />
             <View style={styles.detailsContainer}>
                 {product.product !== null ?

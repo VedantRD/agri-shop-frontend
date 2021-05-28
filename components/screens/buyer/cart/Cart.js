@@ -14,8 +14,11 @@ const Cart = ({ navigation }) => {
     const styles = useStyleSheet(themedStyle);
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
-    const { state } = useContext(UserContext)
+    const { state, dispatch } = useContext(UserContext)
     const [visible, setVisible] = React.useState(false);
+
+    console.log(state.cartItems.length, 'items in reducer =', state.cartItems)
+
 
     const totalCost = () => {
         return items.reduce((acc, item) => item.product ? (acc + item.product.price * item.quantity) : 0, 0);
@@ -49,7 +52,7 @@ const Cart = ({ navigation }) => {
                 if (res.data.status === 'success') {
                     setItems(res.data.cart.items)
                     // snackbar({ type: res.data.status, message: res.data.message })
-                    console.log(res.data.cart.items.length, 'items =', res.data.cart.items)
+                    dispatch({ type: 'UPDATE_CART', payload: res.data.cart.items })
                 }
                 else {
                     snackbar({ type: res.data.status, message: res.data.message })

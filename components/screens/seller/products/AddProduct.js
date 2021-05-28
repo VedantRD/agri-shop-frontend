@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { Layout, Text, Input, Button, useTheme, Select, SelectItem } from '@ui-kitten/components';
+import { Layout, Text, Input, Button, useTheme, Select, SelectItem, Avatar } from '@ui-kitten/components';
 import Header from '../../common/Header'
 import { KeyboardAvoidingView } from '../../common/extra';
 import { UserContext } from '../../../theme/ApplyTheme'
 import axios from 'axios'
 import url from '../../../url'
 import snackbar from '../../common/Snackbar';
+import { CameraIcon } from '../../common/Icons';
+import BottomSheetImage from './BottomSheetImage'
 
 const AddProduct = ({ navigation }) => {
 
@@ -21,6 +23,8 @@ const AddProduct = ({ navigation }) => {
     const [price, setPrice] = useState('')
     const [quantity, setQuantity] = useState('')
     const { state } = useContext(UserContext)
+    const [avatarSource, setAvatarSource] = useState('')
+    const [imageSource, setImageSource] = useState('')
 
     const theme = useTheme()
 
@@ -34,9 +38,27 @@ const AddProduct = ({ navigation }) => {
         setUnit(units[index.row])
     }
 
-    const addNewProduct = () => {
-        console.log(category)
-        axios.post(`${url}/seller/addproduct`, { name, description, price, quantity, ownedBy: state._id, category, unit })
+    const uploadImageToCloudinary = () => {
+        if (imageSource !== "") {
+            const data = new FormData()
+            data.append("file", imageSource)
+            data.append("upload_preset", "Medibot")
+            data.append("cloud_name", "rb2000")
+
+            axios
+                .post('https://api.cloudinary.com/v1_1/rb2000/image/upload', data)
+                .then((res) => {
+                    addNewProduct(res.data.secure_url)
+                })
+                .catch(err => console.log(err))
+        }
+        else {
+            addNewProduct('')
+        }
+    }
+
+    const addNewProduct = (image) => {
+        axios.post(`${url}/seller/addproduct`, { name, description, price, quantity, ownedBy: state._id, category, unit, image })
             .then(res => {
                 if (res.data.status === 'success') {
                     snackbar({ type: res.data.status, message: res.data.message })
@@ -55,6 +77,15 @@ const AddProduct = ({ navigation }) => {
             <Layout level='4' style={styles.container}>
                 <ScrollView style={{ padding: 15 }}>
                     <KeyboardAvoidingView>
+
+                        {/* bottom nav for image upload */}
+                        <BottomSheetImage
+                            setAvatarSource={setAvatarSource}
+                            setImageSource={setImageSource}
+                            imageSource={imageSource}
+                            avatarSource={avatarSource}
+                        />
+
                         <Text style={styles.label}>Product Name</Text>
                         <Input
                             placeholder='Product Name'
@@ -120,7 +151,7 @@ const AddProduct = ({ navigation }) => {
                     <Button
                         style={styles.button}
                         size='large'
-                        onPress={addNewProduct}
+                        onPress={uploadImageToCloudinary}
                     >
                         ADD PRODUCT
                     </Button>
@@ -153,5 +184,5 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         // marginTop: 15,
-    }
+    },
 })

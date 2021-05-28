@@ -15,7 +15,7 @@ const Products = ({ navigation, route }) => {
 
     const [loading, setLoading] = useState(false)
     const [products, setProducts] = useState([])
-    const { state } = useContext(UserContext)
+    const { state, dispatch } = useContext(UserContext)
     const [q, setQ] = useState('')
     const [emptyText, setEmptyText] = useState('No products to show currently')
     const categories = ['All', 'Fruit', 'Vegetable', 'Dairy'];
@@ -29,24 +29,6 @@ const Products = ({ navigation, route }) => {
     const selectCategory = (index) => {
         setSelectedIndex(index)
         setCategory(categories[index.row])
-    }
-
-    // add product to cart
-    const addToCart = (product) => {
-        setLoading(true)
-        let item = { product, quantity: 1 }
-        axios.post(`${url}/buyer/cart/add`, { item, cartId: state.cartId })
-            .then(res => {
-                if (res.data.status === 'success') {
-                    snackbar({ type: res.data.status, message: res.data.message })
-                    console.log(res.data)
-                }
-                else {
-                    snackbar({ type: res.data.status, message: res.data.message })
-                }
-            })
-            .catch(err => console.log(err))
-        setLoading(false)
     }
 
     const searchProduct = () => {
@@ -115,17 +97,17 @@ const Products = ({ navigation, route }) => {
         }
     }, [q, category])
 
-    const renderItemHeader = () => (
+    const renderItemHeader = (info) => (
         <ImageBackground
             style={styles.itemHeader}
-            source={{ uri: 'https://st3.depositphotos.com/1041725/31792/v/450/depositphotos_317926002-stock-illustration-basket-with-fruits-illustration-vector.jpg' }}
+            source={{ uri: info.item.image }}
         />
     );
 
     const renderProductItem = (info) => (
         <Card
             style={styles.productItem}
-            header={() => renderItemHeader()}
+            header={() => renderItemHeader(info)}
             onPress={() => navigation.navigate('PRODUCT_DETAILS', { product: info.item })}
         >
             <Text category='h5' style={{ marginBottom: 5 }}>
@@ -140,12 +122,11 @@ const Products = ({ navigation, route }) => {
                 <Text category='h5'>
                     ₹ {info.item.price} / {info.item.unit}
                 </Text>
-                <Button
+                {/* <Button
                     style={styles.iconButton}
                     size='medium'
                     accessoryLeft={CartIcon}
-                    onPress={() => addToCart(info.item)}
-                />
+                /> */}
             </View>
         </Card>
     );
