@@ -6,6 +6,7 @@ import { KeyboardAvoidingView } from '../../common/extra';
 import axios from 'axios'
 import url from '../../../url'
 import snackbar from '../../common/Snackbar';
+import EditProductImage from './EditProductImage'
 
 const EditProduct = ({ navigation, route }) => {
 
@@ -20,6 +21,8 @@ const EditProduct = ({ navigation, route }) => {
     const [category, setCategory] = React.useState(product.category);
     const [price, setPrice] = useState(product.price.toString())
     const [quantity, setQuantity] = useState(product.quantity.toString())
+    const [avatarSource, setAvatarSource] = useState(product.image)
+    const [imageSource, setImageSource] = useState('')
 
     const theme = useTheme()
 
@@ -33,9 +36,29 @@ const EditProduct = ({ navigation, route }) => {
         setUnit(units[index.row])
     }
 
-    const updateProduct = () => {
+    const uploadImageToCloudinary = () => {
+        if (imageSource !== "") {
+            const data = new FormData()
+            data.append("file", imageSource)
+            data.append("upload_preset", "Medibot")
+            data.append("cloud_name", "rb2000")
+
+            axios
+                .post('https://api.cloudinary.com/v1_1/rb2000/image/upload', data)
+                .then((res) => {
+                    updateProduct(res.data.secure_url)
+                })
+                .catch(err => console.log(err))
+        }
+        else {
+            updateProduct('')
+        }
+    }
+
+    const updateProduct = (image) => {
+        console.log(image)
         axios
-            .post(`${url}/seller/updateproduct`, { name, description, price, quantity, productId: product._id, category, unit })
+            .post(`${url}/seller/updateproduct`, { name, description, price, quantity, productId: product._id, category, unit, image })
             .then(res => {
                 if (res.data.status === 'success') {
                     snackbar({ type: res.data.status, message: res.data.message })
@@ -55,6 +78,12 @@ const EditProduct = ({ navigation, route }) => {
                 <ScrollView style={{ padding: 15 }}>
                     <View style={{ paddingBottom: 15 }}>
                         <KeyboardAvoidingView>
+                            <EditProductImage
+                                setAvatarSource={setAvatarSource}
+                                setImageSource={setImageSource}
+                                imageSource={imageSource}
+                                avatarSource={avatarSource}
+                            />
                             <Text style={styles.label}>Product Name</Text>
                             <Input
                                 placeholder='Product Name'
@@ -120,7 +149,7 @@ const EditProduct = ({ navigation, route }) => {
                     <Button
                         style={styles.button}
                         size='large'
-                        onPress={updateProduct}
+                        onPress={uploadImageToCloudinary}
                     >
                         UPDATE
                     </Button>
