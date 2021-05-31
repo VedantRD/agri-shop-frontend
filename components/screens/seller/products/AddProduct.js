@@ -115,28 +115,28 @@ const AddProduct = ({ navigation }) => {
                                 <SelectItem title={item} key={i} />
                             )}
                         </Select>
-                        <Text style={styles.label}>Quantity</Text>
+                        <Text style={styles.label}>Quantity Available (stock for sale)</Text>
                         <View style={{ flexDirection: 'row' }}>
                             <Input
                                 placeholder='Quantity'
                                 size='large'
                                 value={quantity}
                                 onChangeText={nextValue => setQuantity(nextValue)}
-                                style={[styles.input, { width: '65%' }]}
+                                style={[styles.input, { width: '60%' }]}
                             />
                             <Select
                                 size='large'
                                 selectedIndex={selectedUnitIndex}
                                 onSelect={index => selectUnit(index)}
                                 value={unit}
-                                style={[styles.input, { width: '35%' }]}
+                                style={[styles.input, { width: '40%' }]}
                             >
                                 {units.map((item, i) =>
                                     <SelectItem title={item} key={i} />
                                 )}
                             </Select>
                         </View>
-                        <Text style={styles.label}>Price</Text>
+                        <Text style={styles.label}>Price per unit (Rs)</Text>
                         <Input
                             placeholder='Price'
                             size='large'
