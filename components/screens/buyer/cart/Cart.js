@@ -72,6 +72,7 @@ const Cart = ({ navigation }) => {
                     if (res.data.status === 'success') {
                         snackbar({ type: res.data.status, message: res.data.message })
                         setItems([])
+                        dispatch({ type: 'UPDATE_CART', payload: [] })
                     }
                     else {
                         snackbar({ type: res.data.status, message: res.data.message })

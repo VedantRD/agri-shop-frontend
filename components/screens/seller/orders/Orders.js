@@ -40,7 +40,7 @@ const Orders = ({ navigation }) => {
                 if (res.data.status === 'success') {
                     orders[index].status = res.data.order.status
                     setOrders([...orders])
-                    snackbar({ type: res.data.status, message: res.data.message })
+                    // snackbar({ type: res.data.status, message: res.data.message })
                 }
                 else {
                     snackbar({ type: res.data.status, message: res.data.message })
@@ -58,7 +58,7 @@ const Orders = ({ navigation }) => {
     );
 
     const renderItemFooter = (info) => (
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', padding: 10, paddingHorizontal: 25 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 10, paddingHorizontal: 25 }}>
             {info.item.status === 'Confirmed' ?
                 <>
                     <Button
@@ -66,14 +66,14 @@ const Orders = ({ navigation }) => {
                         appearance='outline' status='danger'
                         onPress={() => updateOrderStatus('Cancelled', info.item._id, info.index)}
                     >
-                        Cancel
+                        Cancel Order
                     </Button>
                     <Button
                         style={styles.completeButton}
                         status='success'
                         onPress={() => updateOrderStatus('Delivered', info.item._id, info.index)}
                     >
-                        Complete
+                        Order Delivered
                     </Button>
                 </>
                 :
@@ -166,11 +166,10 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     cancelButton: {
-        width: "35%",
+        width: "48%",
         backgroundColor: '#fff',
     },
     completeButton: {
-        width: "38%",
-        marginLeft: 10
+        width: "48%",
     }
 });

@@ -69,7 +69,7 @@ const ProductDetails = ({ navigation, route }) => {
                         <ScrollView>
                             <ImageBackground
                                 style={styles.image}
-                                source={{ uri: 'https://st3.depositphotos.com/1041725/31792/v/450/depositphotos_317926002-stock-illustration-basket-with-fruits-illustration-vector.jpg' }}
+                                source={{ uri: product.image }}
                             />
                             <Layout
                                 style={styles.detailsContainer}
@@ -180,14 +180,14 @@ const themedStyles = StyleService.create({
         justifyContent: 'space-between'
     },
     name: {
-        width: '65%',
+        width: '60%',
     },
     subtitle: {
         marginTop: 8,
     },
     price: {
         textAlign: 'right',
-        width: '30%'
+        width: '35%'
     },
     description: {
         marginVertical: 16,

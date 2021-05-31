@@ -42,7 +42,7 @@ export const CartItem = (props) => {
                 source={{ uri: product.product.image }}
             />
             <View style={styles.detailsContainer}>
-                {product.product !== null ?
+                {product.product ?
                     <>
                         <Text
                             category='h6'

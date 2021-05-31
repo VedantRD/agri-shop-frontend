@@ -110,24 +110,30 @@ const Products = ({ navigation, route }) => {
             header={() => renderItemHeader(info)}
             onPress={() => navigation.navigate('PRODUCT_DETAILS', { product: info.item })}
         >
-            <Text category='h5' style={{ marginBottom: 5 }}>
-                {info.item.name}
-            </Text>
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 5 }}>
+                <Text category='h5' style={{ width: '65%' }}>
+                    {info.item.name}
+                </Text>
+                <Text category='h6' style={{ width: '30%', textAlign: 'right' }}>
+                    ₹ {info.item.price} / {info.item.unit}
+                </Text>
+            </View>
             <Text
                 appearance='hint'
                 category='s1'>
                 {info.item.category}
             </Text>
-            <View style={styles.itemFooter}>
-                <Text category='h5'>
+            {/* <View style={styles.itemFooter}>
+                <Text category='h6'>
                     ₹ {info.item.price} / {info.item.unit}
                 </Text>
-                {/* <Button
+                <Button
                     style={styles.iconButton}
                     size='medium'
                     accessoryLeft={CartIcon}
-                /> */}
-            </View>
+                />
+            </View> */}
         </Card>
     );
 
@@ -217,9 +223,9 @@ const themedStyles = StyleService.create({
         // height: '100%' 
     },
     itemFooter: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        // flexDirection: 'row',
+        // justifyContent: 'space-between',
+        // alignItems: 'center',
         paddingTop: 8,
         // paddingHorizontal: 20,
     },
