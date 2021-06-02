@@ -71,7 +71,7 @@ const Orders = ({ navigation }) => {
                 {info.item.items.map((item, i) => { return item.product.name }
                 ).join(', ').slice(0, 50)}
             </Text>
-            <Text style={styles.address}>Delivery by 22 May, 2021</Text>
+            <Text style={styles.address}>Delivery by {new Date(info.item.deliveryDate).toDateString()}</Text>
             <Text style={styles.address}>{info.item.buyer.address}</Text>
         </Card>
     );

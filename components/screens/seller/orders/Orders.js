@@ -7,6 +7,7 @@ import { UserContext } from '../../../theme/ApplyTheme';
 import MySpinner from '../../common/MySpinner';
 import Header from '../../common/Header'
 import snackbar from '../../common/Snackbar';
+import UpdateDateModal from './updateDateModal.js'
 
 const Orders = ({ navigation }) => {
 
@@ -93,19 +94,26 @@ const Orders = ({ navigation }) => {
         <Card
             style={styles.item}
             // status='warning'
-            onPress={() => navigation.navigate('ORDER_DETAILS', { order: info.item })}
+            // onPress={() => navigation.navigate('ORDER_DETAILS', { order: info.item })}
             // header={headerProps => renderItemHeader(headerProps, info)}
             footer={() => renderItemFooter(info)}>
             <Text style={styles.address}>Deliver to, {info.item.buyer.name}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                <Text>Delivery date -  22 May, 2021</Text>
-                <Text category='p1' status='primary'>EDIT</Text>
+                <Text>Delivery date -  {new Date(info.item.deliveryDate).toDateString()}</Text>
+                {/* <Text category='p1' status='primary'>EDIT</Text> */}
+                <UpdateDateModal
+                    order={info.item}
+                    orders={orders}
+                    setOrders={setOrders}
+                    i={info.index}
+                />
             </View>
             <Text style={styles.address}>
                 {info.item.items.map((item, i) => { return item.product.name }
                 ).join(', ').slice(0, 50)}
             </Text>
             <Text>{info.item.buyer.address}</Text>
+
         </Card>
     );
 

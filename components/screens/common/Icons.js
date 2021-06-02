@@ -80,3 +80,7 @@ export const SearchIcon = (props) => (
 export const CameraIcon = (props) => (
     <Icon {...props} name='camera-outline' />
 );
+
+export const CalendarIcon = (props) => (
+    <Icon {...props} name='calendar-outline' />
+)
