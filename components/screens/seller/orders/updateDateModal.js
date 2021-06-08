@@ -9,6 +9,7 @@ import url from '../../../url'
 const UpdateDateModal = ({ orders, setOrders, order, i }) => {
 
     const [visible, setVisible] = React.useState(false);
+
     const [date, setDate] = React.useState(order.deliveryDate ? order.deliveryDate : new Date());
 
 

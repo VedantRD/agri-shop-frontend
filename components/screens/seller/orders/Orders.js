@@ -106,6 +106,7 @@ const Orders = ({ navigation }) => {
                     orders={orders}
                     setOrders={setOrders}
                     i={info.index}
+
                 />
             </View>
             <Text style={styles.address}>
