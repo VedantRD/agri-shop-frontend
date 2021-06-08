@@ -53,7 +53,7 @@ const AddProduct = ({ navigation }) => {
                 .catch(err => console.log(err))
         }
         else {
-            addNewProduct('')
+            addNewProduct(undefined)
         }
     }
 

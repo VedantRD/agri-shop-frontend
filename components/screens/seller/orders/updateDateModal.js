@@ -10,7 +10,7 @@ const UpdateDateModal = ({ orders, setOrders, order, i }) => {
 
     const [visible, setVisible] = React.useState(false);
 
-    const [date, setDate] = React.useState(order.deliveryDate ? order.deliveryDate : new Date());
+    const [date, setDate] = React.useState(order.deliveryDate);
 
 
     const updateOrderDate = () => {
@@ -44,12 +44,13 @@ const UpdateDateModal = ({ orders, setOrders, order, i }) => {
                     <Layout style={styles.container} level='1'>
 
                         <Text category='h6' style={{ marginVertical: 10 }}>
-                            Delivery date: {date.toLocaleDateString()}
+                            Delivery date: {new Date(date).toLocaleDateString()}
                         </Text>
 
                         <Datepicker
-                            date={date}
+                            date={new Date(date)}
                             min={new Date()}
+                            focusable={true}
                             onSelect={nextDate => setDate(nextDate)}
                             // backdropStyle={{ justifyContent: 'flex-start' }}
                             accessoryRight={CalendarIcon}

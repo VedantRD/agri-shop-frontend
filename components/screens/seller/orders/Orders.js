@@ -8,6 +8,7 @@ import MySpinner from '../../common/MySpinner';
 import Header from '../../common/Header'
 import snackbar from '../../common/Snackbar';
 import UpdateDateModal from './updateDateModal.js'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const Orders = ({ navigation }) => {
 
@@ -52,9 +53,19 @@ const Orders = ({ navigation }) => {
 
     const renderItemHeader = (headerProps, info) => (
         <View {...headerProps}>
-            <Text category='h6' style={{ fontWeight: 'bold' }}>
-                {info.item.buyer.name}
-            </Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Text category='h6' style={{ fontWeight: 'bold' }}>
+                    {info.item.buyer.name}
+                </Text>
+                {/* <Text
+                    status='primary'
+                    style={{ textAlign: 'right' }}
+                    onPress={() => navigation.navigate('ORDER_DETAILS', { order: info.item })}
+                >
+                    View Details
+            </Text> */}
+            </View>
+
         </View>
     );
 
@@ -104,7 +115,6 @@ const Orders = ({ navigation }) => {
                 <UpdateDateModal
                     order={info.item}
                     orders={orders}
-
                     setOrders={setOrders}
                     i={info.index}
 
@@ -115,7 +125,17 @@ const Orders = ({ navigation }) => {
                 ).join(', ').slice(0, 50)}
             </Text>
             <Text>{info.item.buyer.address}</Text>
-
+            <TouchableOpacity
+                onPress={() => navigation.navigate('ORDER_DETAILS', { order: info.item })}
+            >
+                <Text
+                    // category='h6'
+                    status='primary'
+                    style={{ textAlign: 'center', marginTop: 15, marginBottom: 5 }}
+                >
+                    View Details
+            </Text>
+            </TouchableOpacity>
         </Card>
     );
 
