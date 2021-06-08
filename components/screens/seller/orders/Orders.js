@@ -104,6 +104,7 @@ const Orders = ({ navigation }) => {
                 <UpdateDateModal
                     order={info.item}
                     orders={orders}
+
                     setOrders={setOrders}
                     i={info.index}
 
