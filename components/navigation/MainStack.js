@@ -10,6 +10,7 @@ import BuyerTabNavigator from './buyer/BuyerTabNavigator'
 import SellerTabNavigator from './seller/SellerTabNavigator';
 import Loading from '../Loading';
 import ProductDetails from '../screens/buyer/product/ProductDetails';
+import ForgotPassword from '../screens/common/ForgotPassword';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ const MainStack = () => {
             <Stack.Screen name="BUYER_TAB" component={BuyerTabNavigator} />
             <Stack.Screen name="SELLER_TAB" component={SellerTabNavigator} />
             <Stack.Screen name="PRODUCT_DETAILS" component={ProductDetails} />
+            <Stack.Screen name="FORGOT_PASSWORD" component={ForgotPassword} />
         </Stack.Navigator>
     )
 }

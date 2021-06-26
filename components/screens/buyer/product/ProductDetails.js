@@ -22,7 +22,7 @@ const ProductDetails = ({ navigation, route }) => {
     const checkCart = () => {
         setLoading(true)
 
-        if (state.cartItems.length && product.ownedBy._id !== state.cartItems[0].product.ownedBy) {
+        if (state.cartItems?.length && product.ownedBy._id !== state.cartItems[0].product.ownedBy) {
             setLoading(false)
             // return snackbar({ type: 'failed', message: 'you cant add this item' })
             return setVisible(true)

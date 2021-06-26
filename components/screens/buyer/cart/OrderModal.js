@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Card, Modal, Text, Divider } from '@ui-kitten/components';
 
-const OrderModal = ({ visible, setVisible, order, placeOrder }) => {
+const OrderModal = ({ visible, setVisible, order, placeOrder, makePayment }) => {
 
     return (
         <View style={styles.container}>
@@ -34,7 +34,8 @@ const OrderModal = ({ visible, setVisible, order, placeOrder }) => {
                                     <Button
                                         style={styles.completeButton}
                                         status='primary'
-                                        onPress={placeOrder}
+                                        // onPress={placeOrder}
+                                        onPress={makePayment}
                                     >
                                         CONFIRM
                                     </Button>

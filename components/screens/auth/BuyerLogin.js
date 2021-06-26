@@ -94,6 +94,7 @@ const BuyerLogin = ({ navigation }) => {
                         style={styles.forgotPasswordButton}
                         appearance='ghost'
                         status='basic'
+                        onPress={() => navigation.navigate('FORGOT_PASSWORD', { role: 'buyer' })}
                     >
                         Forgot your password?
                     </Button>

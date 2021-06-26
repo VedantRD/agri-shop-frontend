@@ -8,6 +8,8 @@ import { UserContext } from '../../../theme/ApplyTheme';
 import MySpinner from '../../common/MySpinner';
 import snackbar from '../../common/Snackbar';
 import OrderModal from './OrderModal'
+import RazorpayCheckout from 'react-native-razorpay';
+import { Alert } from 'react-native';
 
 const Cart = ({ navigation }) => {
 
@@ -16,9 +18,9 @@ const Cart = ({ navigation }) => {
     const [loading, setLoading] = useState(true)
     const { state, dispatch } = useContext(UserContext)
     const [visible, setVisible] = React.useState(false);
+    const [total, setTotal] = useState(0)
 
-    console.log(state.cartItems.length, 'items in reducer =', state.cartItems)
-
+    // console.log(state.cartItems.length, 'items in reducer =', state.cartItems)
 
     const totalCost = () => {
         return items.reduce((acc, item) => item.product ? (acc + item.product.price * item.quantity) : 0, 0);
@@ -28,11 +30,13 @@ const Cart = ({ navigation }) => {
         items.splice(index, 1);
         console.log(items.length)
         updateCart([...items])
+        setTotal(items.reduce((acc, item) => item.product ? (acc + item.product.price * item.quantity) : 0, 0))
     };
 
     const onItemChange = (item, index) => {
         items[index] = item;
         updateCart([...items])
+        setTotal(items.reduce((acc, item) => item.product ? (acc + item.product.price * item.quantity) : 0, 0))
     };
 
     const renderProductItem = (info) => (
@@ -63,24 +67,47 @@ const Cart = ({ navigation }) => {
     }
 
     const placeOrder = () => {
+        setLoading(true)
+        axios.post(`${url}/buyer/order/create`, { buyerId: state._id, items, buyerAddress: state.address, sellerId: items[0].product.ownedBy, total: total, deliveryCharges: total <= 500 ? 30 : 0 })
+            .then(res => {
+                if (res.data.status === 'success') {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                    setItems([])
+                    dispatch({ type: 'UPDATE_CART', payload: [] })
+                    navigation.navigate('Orders')
+                }
+                else {
+                    snackbar({ type: res.data.status, message: res.data.message })
+                }
+            })
+            .catch(err => console.log(err))
+        setLoading(false)
+    }
+
+    const makePayment = () => {
         if (items.length === 0) {
-            snackbar({ type: 'failed', message: 'Your cart is empty' })
-        } else {
-            setLoading(true)
-            axios.post(`${url}/buyer/order/create`, { buyerId: state._id, items, buyerAddress: state.address, sellerId: items[0].product.ownedBy, total: totalCost(), deliveryCharges: totalCost() <= 500 ? 30 : 0 })
-                .then(res => {
-                    if (res.data.status === 'success') {
-                        snackbar({ type: res.data.status, message: res.data.message })
-                        setItems([])
-                        dispatch({ type: 'UPDATE_CART', payload: [] })
-                    }
-                    else {
-                        snackbar({ type: res.data.status, message: res.data.message })
-                    }
-                })
-                .catch(err => console.log(err))
-            setLoading(false)
+            return snackbar({ type: 'failed', message: 'Your cart is empty' })
         }
+        let deliveryCost = total <= 500 ? 30 : 0
+        let totalCost = ((total + deliveryCost) * 100).toString()
+        var options = {
+            description: '',
+            currency: 'INR',
+            key: 'rzp_test_hN172ozqSpWvCc', // Your api key
+            amount: totalCost,
+            name: 'Agri Shop',
+            prefill: {
+                email: 'agrishop@gmail.com',
+                contact: '9191919191',
+                name: 'Agri Shop'
+            },
+        }
+        RazorpayCheckout.open(options).then((data) => {
+            // alert(`Success: ${data.razorpay_payment_id}`);
+            placeOrder()
+        }).catch((error) => {
+            Alert.alert(`Payment Failed`, 'Transaction could not complete.');
+        });
         setVisible(false)
     }
 
@@ -93,6 +120,7 @@ const Cart = ({ navigation }) => {
                     if (res.data.status === 'success') {
                         setItems(res.data.cart.items)
                         console.log(res.data.cart)
+                        setTotal(res.data.cart.items.reduce((acc, item) => item.product ? (acc + item.product.price * item.quantity) : 0, 0))
                     }
                     else {
                         snackbar({ type: res.data.status, message: res.data.message })
@@ -122,6 +150,7 @@ const Cart = ({ navigation }) => {
                                 deliveryCost: totalCost() <= 500 ? 30 : 0
                             }}
                             placeOrder={placeOrder}
+                            makePayment={makePayment}
                         />
                         {items.length == 0 ?
                             <Text
