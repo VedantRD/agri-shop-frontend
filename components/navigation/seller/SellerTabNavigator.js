@@ -2,12 +2,12 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
-import Profile from '../../screens/seller/profile/Profile'
 const { Navigator, Screen } = createBottomTabNavigator();
 import { PersonIcon, BreifcaseIcon, HomeIcon, PlusOutlineIcon } from '../../screens/common/Icons'
 import AddProduct from '../../screens/seller/products/AddProduct';
 import SellerHomeStack from './SellerHomeStack';
 import SellerOrderStack from './SellerOrderStack';
+import ProfileStack from './ProfileStack';
 
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
@@ -37,7 +37,7 @@ const SellerTabNavigator = () => (
     <Screen name='Seller_Home' component={SellerHomeStack} />
     <Screen name='Add_Product' component={AddProduct} />
     <Screen name='Seller_Orders' component={SellerOrderStack} />
-    <Screen name='Seller_Profile' component={Profile} />
+    <Screen name='Seller_Profile' component={ProfileStack} />
   </Navigator>
 );
 

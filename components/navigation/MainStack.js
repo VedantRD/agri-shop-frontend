@@ -11,6 +11,7 @@ import SellerTabNavigator from './seller/SellerTabNavigator';
 import Loading from '../Loading';
 import ProductDetails from '../screens/buyer/product/ProductDetails';
 import ForgotPassword from '../screens/common/ForgotPassword';
+import EditProfile from '../screens/common/EditProfile';
 
 const Stack = createStackNavigator();
 

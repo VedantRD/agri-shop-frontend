@@ -4,10 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigation, BottomNavigationTab } from '@ui-kitten/components';
 import HomeStack from './HomeStack'
 import BuyerOrderStack from './BuyerOrderStack'
-import Profile from '../../screens/buyer/profile/Profile';
 const { Navigator, Screen } = createBottomTabNavigator();
 import { PersonIcon, HomeIcon, CartIcon, BreifcaseIcon } from '../../screens/common/Icons'
 import Cart from '../../screens/buyer/cart/Cart';
+import ProfileStack from './ProfileStack';
 
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
@@ -39,7 +39,7 @@ const BuyerTabNavigator = () => (
     <Screen name='Home' component={HomeStack} />
     <Screen name='Orders' component={BuyerOrderStack} />
     <Screen name='Cart' component={Cart} />
-    <Screen name='Profile' component={Profile} />
+    <Screen name='Profile' component={ProfileStack} />
   </Navigator>
 );
 

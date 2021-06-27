@@ -22,105 +22,71 @@ const Profile = ({ navigation }) => {
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
             <Header title="Profile" />
-            <Layout style={styles.photoSection} level='1'>
 
-                {/* left photo section */}
-                <View>
+            <View style={{ flex: 1 }}>
+                <View style={styles.photoContainer}>
                     <Avatar
                         source={require('../../../assets/customer-2.jpg')}
                         style={styles.photo}
                     />
-                    <Button
-                        style={styles.photoButton}
-                        size='small'
-                        status='basic'
-                        accessoryLeft={CameraIcon}
-                    />
                 </View>
 
-                {/* right name section */}
-                <View style={styles.nameSection}>
-                    <Text category='p1' appearance='hint' style={{ marginHorizontal: 16 }}>
+                <View style={styles.descriptionContainer}>
+                    <Text style={styles.description} category='p1' appearance='hint'>
                         Shop Name
                     </Text>
-                    <Layout
-                        level='1'
-                        style={[styles.nameContainer]}>
-                        <Text category='h6'>
-                            {state.shopname}
-                        </Text>
-                    </Layout>
-                    <Divider />
+                    <Text style={styles.description} category='h6'>
+                        {state.name}
+                    </Text>
                 </View>
-            </Layout>
 
-            <View style={styles.descriptionContainer}>
-                <Text style={styles.description} category='p1' appearance='hint'>
-                    Name
-                </Text>
-                <Text style={styles.description} category='h6'>
-                    {state.name} bhutada
-                </Text>
+                <View style={styles.descriptionContainer}>
+                    <Text style={styles.description} category='p1' appearance='hint'>
+                        Name
+                    </Text>
+                    <Text style={styles.description} category='h6'>
+                        {state.shopname}
+                    </Text>
+                </View>
+
+                <View style={styles.descriptionContainer}>
+                    <Text style={styles.description} category='p1' appearance='hint'>
+                        Mobile Number
+                    </Text>
+                    <Text style={styles.description} category='h6'>
+                        {state.mobileNo}
+                    </Text>
+                </View>
+
+                {/* Address section */}
+                <View style={[styles.descriptionContainer, { paddingBottom: 20 }]}>
+                    <Text style={styles.description} category='p1' appearance='hint'>
+                        Address
+                    </Text>
+                    <Text style={styles.description} category='h6'>
+                        {state.address}
+                    </Text>
+                </View>
             </View>
 
-            <View style={styles.descriptionContainer}>
-                <Text style={styles.description} category='p1' appearance='hint'>
-                    Mobile Number
-                </Text>
-                <Text style={styles.description} category='h6'>
-                    {state.mobileNo}
-                </Text>
-            </View>
-
-            {/* Address section */}
-            <View style={[styles.descriptionContainer, { paddingBottom: 20 }]}>
-                <Text style={styles.description} category='p1' appearance='hint'>
-                    Address
-                </Text>
-                <Text style={styles.description} category='h6'>
-                    {state.address}
-                </Text>
-            </View>
 
             {/* Bottom Section */}
-            <View style={{ marginVertical: 16 }}>
-                <View style={{ backgroundColor: '#fff', marginVertical: 2 }}>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        style={styles.options}>
-                        <Icon name='edit-outline' fill="#000" style={{ width: 25, height: 25 }} />
-                        <Text
-                            category='h6' style={{ marginLeft: 10 }}>
-                            Edit Profile
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ backgroundColor: '#fff', marginVertical: 2 }}>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        style={styles.options}
-                    >
-                        <Icon name='file-outline' fill="#000" style={{ width: 25, height: 25 }} />
-                        <Text
-                            category='h6' style={{ marginLeft: 10 }}>
-                            About us
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={{ backgroundColor: '#fff', marginVertical: 2 }}>
-                    <TouchableOpacity
-                        activeOpacity={1.0}
-                        style={styles.options}
-                        onPress={() => logout()}
-                    >
-                        <Icon name='log-out-outline' fill="#000" style={{ width: 25, height: 25 }} />
-                        <Text
-                            category='h6'
-                            style={{ marginLeft: 10 }}>
-                            Logout
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+            <View style={{ marginVertical: 0 }}>
+                <Button
+                    style={[styles.button, { marginBottom: 15 }]}
+                    size='large'
+                    onPress={() => navigation.navigate('EDIT_PROFILE', { role: 'seller' })}
+                >
+                    Edit Profile
+                </Button>
+                <Button
+                    style={styles.button}
+                    size='large'
+                    status='danger'
+                    onPress={() => logout()}
+                >
+                    Logout
+                </Button>
             </View>
 
         </ScrollView>
@@ -136,44 +102,24 @@ const themedStyles = StyleService.create({
     },
     contentContainer: {
         paddingBottom: 24,
+        flex: 1,
     },
-    photoSection: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 16,
-        paddingVertical: 24,
-        marginTop: 4
+    photoContainer: {
+        backgroundColor: 'background-basic-color-4',
     },
     photo: {
         aspectRatio: 1.0,
-        height: 120,
+        height: 100,
         marginHorizontal: 8,
-    },
-    photoButton: {
-        aspectRatio: 1.0,
-        height: 32,
-        borderRadius: 16,
-        position: 'absolute',
-        alignSelf: 'flex-end',
-        bottom: 0,
-    },
-    nameSection: {
-        flex: 1,
-        marginHorizontal: 16,
-    },
-    nameContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: 16,
+        alignSelf: 'center',
+        marginVertical: 15,
     },
     descriptionContainer: {
-        backgroundColor: 'background-basic-color-1',
+        backgroundColor: 'background-basic-color-4',
         padding: 4,
-        paddingHorizontal: 16,
     },
     description: {
-        paddingHorizontal: 14,
+        paddingHorizontal: 15,
         paddingVertical: 4,
     },
     options: {
@@ -182,5 +128,11 @@ const themedStyles = StyleService.create({
         alignItems: 'center',
         padding: 16,
         paddingLeft: 24,
+        borderBottomColor: '#ddd',
+        borderBottomWidth: 1
+    },
+    button: {
+        // width: '100%',
+        marginHorizontal: 15,
     }
 })
