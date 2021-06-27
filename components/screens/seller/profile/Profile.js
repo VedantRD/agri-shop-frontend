@@ -73,11 +73,18 @@ const Profile = ({ navigation }) => {
             {/* Bottom Section */}
             <View style={{ marginVertical: 0 }}>
                 <Button
-                    style={[styles.button, { marginBottom: 15 }]}
-                    size='large'
+                    style={[styles.button, { marginBottom: 10 }]}
+                    size='medium'
                     onPress={() => navigation.navigate('EDIT_PROFILE', { role: 'seller' })}
                 >
                     Edit Profile
+                </Button>
+                <Button
+                    style={[styles.button, { marginBottom: 10 }]}
+                    size='medium'
+                    onPress={() => navigation.navigate('CHANGE_PASSWORD', { role: 'seller' })}
+                >
+                    Change Password
                 </Button>
                 <Button
                     style={styles.button}
@@ -120,7 +127,7 @@ const themedStyles = StyleService.create({
     },
     description: {
         paddingHorizontal: 15,
-        paddingVertical: 4,
+        paddingVertical: 1,
     },
     options: {
         flexDirection: 'row',

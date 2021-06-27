@@ -84,7 +84,7 @@ const OrderDetails = ({ navigation, route }) => {
                         <View style={styles.row}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <Icon name='phone-outline' style={styles.icon} fill='#000' />
-                                <Text category='h6'>{order.seller.mobileNo}</Text>
+                                <Text category='h6'>{order.buyer.mobileNo}</Text>
                             </View>
                             <TouchableOpacity onPress={dialCall}>
                                 <Text style={{ textAlign: 'right', fontWeight: 'bold' }} status='primary' category='h6'>CALL</Text>

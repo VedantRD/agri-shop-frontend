@@ -64,15 +64,22 @@ const Profile = ({ navigation }) => {
             {/* Bottom Section */}
             <View style={{ marginVertical: 0 }}>
                 <Button
-                    style={[styles.button, { marginBottom: 15 }]}
-                    size='large'
+                    style={[styles.button, { marginBottom: 10 }]}
+                    size='medium'
                     onPress={() => navigation.navigate('EDIT_PROFILE', { role: 'buyer' })}
                 >
                     Edit Profile
                 </Button>
                 <Button
+                    style={[styles.button, { marginBottom: 10 }]}
+                    size='medium'
+                    onPress={() => navigation.navigate('CHANGE_PASSWORD', { role: 'buyer' })}
+                >
+                    Change Password
+                </Button>
+                <Button
                     style={styles.button}
-                    size='large'
+                    size='medium'
                     status='danger'
                     onPress={() => logout()}
                 >
