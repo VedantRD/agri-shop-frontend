@@ -51,7 +51,7 @@ const EditProduct = ({ navigation, route }) => {
                 .catch(err => console.log(err))
         }
         else {
-            updateProduct('')
+            updateProduct(avatarSource)
         }
     }
 

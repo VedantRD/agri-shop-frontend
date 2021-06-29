@@ -57,10 +57,10 @@ const OrderModal = ({ visible, setVisible, order, placeOrder, makePayment }) => 
                                 <Text category='h6'>₹ {order.deliveryCost}</Text>
                             }
                         </View>
-                        <View style={styles.row}>
+                        {/* <View style={styles.row}>
                             <Text category='h6'>Payment Type</Text>
                             <Text category='h6'>Cash on delivery</Text>
-                        </View>
+                        </View> */}
                         <Divider style={{ marginVertical: 10, backgroundColor: '#eee', marginHorizontal: -5 }} />
                         <View style={[styles.row, { marginBottom: 0 }]}>
                             <Text category='h6' style={{ fontWeight: 'bold' }}>Final Amount</Text>

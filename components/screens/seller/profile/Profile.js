@@ -33,7 +33,7 @@ const Profile = ({ navigation }) => {
 
                 <View style={styles.descriptionContainer}>
                     <Text style={styles.description} category='p1' appearance='hint'>
-                        Shop Name
+                        Name
                     </Text>
                     <Text style={styles.description} category='h6'>
                         {state.name}
@@ -42,7 +42,7 @@ const Profile = ({ navigation }) => {
 
                 <View style={styles.descriptionContainer}>
                     <Text style={styles.description} category='p1' appearance='hint'>
-                        Name
+                        Shop Name
                     </Text>
                     <Text style={styles.description} category='h6'>
                         {state.shopname}

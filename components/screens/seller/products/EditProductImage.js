@@ -76,7 +76,7 @@ export default function EditProductIamge({ setAvatarSource, setImageSource, imag
                             <Button
                                 accessoryLeft={CameraIcon}
                                 onPress={() => refRBSheet.current.open()}
-                                style={{ width: '45%' }}
+                                style={{ width: '48%' }}
                             >
                                 <Text category='h6' style={{ color: '#fff', }}>Change image</Text>
                             </Button>
@@ -87,7 +87,7 @@ export default function EditProductIamge({ setAvatarSource, setImageSource, imag
                                     setImageSource('')
                                 }}
                                 status='danger'
-                                style={{ width: '45%' }}
+                                style={{ width: '48%' }}
                             >
                                 <Text category='h6' style={{ color: '#fff' }}>Remove image</Text>
                             </Button>

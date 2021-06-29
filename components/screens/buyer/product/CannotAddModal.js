@@ -63,8 +63,8 @@ const CannotAddModal = ({ visible, setVisible, addToCart }) => {
                 >
                     <View style={{ paddingVertical: 0 }}>
                         <Text category='h6'>
-                            Do you want to add this product to cart ?
-                            All your other items in cart will be removed
+                            Your previously added products are from different shop.{'\n\n'}Do you  still want to add this product to cart ?
+                            All your existing items in cart will be removed.
                         </Text>
                         {/* <View style={styles.row}>
                             <Text category='h6'>Total Amount</Text>

@@ -15,12 +15,12 @@ const ChangePassword = ({ navigation, route }) => {
     const { state, dispatch } = useContext(UserContext)
     const [oldPassword, setOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
-    const [match, setMatch] = useState(true)
-
-    const theme = useTheme()
+    const [newPasswordConfirm, setNewPasswordConfirm] = useState('')
 
     const updatePassword = () => {
-
+        if (newPassword != newPasswordConfirm) {
+            return snackbar({ type: 'failed', message: 'new password and confirm password doesnt match' })
+        }
         axios
             .post(`${url}/change_password`, { oldPassword, newPassword, userId: state._id, role })
             .then(res => {
@@ -64,12 +64,10 @@ const ChangePassword = ({ navigation, route }) => {
                             <Input
                                 placeholder='Retype New Password'
                                 size='large'
-                                status={match ? 'basic' : 'danger'}
-                                // value={cnewPassword}
+                                status={newPassword == newPasswordConfirm ? 'basic' : 'danger'}
+                                value={newPasswordConfirm}
                                 secureTextEntry={true}
-                                onChangeText={(t) => {
-                                    t === newPassword ? setMatch(true) : setMatch(false)
-                                }}
+                                onChangeText={setNewPasswordConfirm}
                                 style={styles.input}
                             />
                         </KeyboardAvoidingView>
@@ -94,7 +92,6 @@ export default ChangePassword
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // padding: 15
     },
     title: {
         marginBottom: 50
